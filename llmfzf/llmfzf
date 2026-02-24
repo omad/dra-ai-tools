@@ -1,0 +1,294 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import urllib.parse
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+def parse_dt(value: str | None) -> datetime:
+    if not value:
+        return datetime.min.replace(tzinfo=timezone.utc)
+    try:
+        dt = datetime.fromisoformat(value)
+    except ValueError:
+        return datetime.min.replace(tzinfo=timezone.utc)
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def safe_text(value: Any) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    return str(value)
+
+
+def build_conversations(logs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    groups: dict[str, list[dict[str, Any]]] = {}
+    for item in logs:
+        cid = safe_text(item.get("conversation_id") or item.get("id") or "unknown")
+        groups.setdefault(cid, []).append(item)
+
+    conversations: list[dict[str, Any]] = []
+    for cid, entries in groups.items():
+        entries = sorted(entries, key=lambda e: parse_dt(safe_text(e.get("datetime_utc"))))
+        latest = entries[-1] if entries else {}
+        latest_dt = safe_text(latest.get("datetime_utc"))
+
+        first = entries[0] if entries else latest
+        prompt_preview = safe_text(first.get("prompt")).replace("\n", " ").replace("\t", " ").strip()
+        if len(prompt_preview) > 260:
+            prompt_preview = prompt_preview[:257] + "..."
+
+        model = safe_text(latest.get("resolved_model") or latest.get("model") or latest.get("conversation_model") or "unknown")
+        name = safe_text(latest.get("conversation_name") or prompt_preview or cid).strip() or "LLM Conversation"
+
+        conversations.append(
+            {
+                "conversation_id": cid,
+                "conversation_short_id": cid[:8],
+                "latest_datetime": latest_dt,
+                "latest_display": latest_dt[:16].replace("T", " ") if latest_dt else "",
+                "model": model,
+                "conversation_name": name,
+                "turn_count": len(entries),
+                "prompt_preview": prompt_preview,
+                "entries": entries,
+            }
+        )
+
+    conversations.sort(key=lambda c: parse_dt(safe_text(c.get("latest_datetime"))))
+    return conversations
+
+
+def load_cache(cache_path: str) -> list[dict[str, Any]]:
+    with open(cache_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def find_conversation(cache_path: str, cid: str) -> dict[str, Any] | None:
+    for c in load_cache(cache_path):
+        if safe_text(c.get("conversation_id")) == cid:
+            return c
+    return None
+
+
+def sorted_entries_asc(conv: dict[str, Any]) -> list[dict[str, Any]]:
+    entries = conv.get("entries") or []
+    return sorted(entries, key=lambda e: parse_dt(safe_text(e.get("datetime_utc"))))
+
+
+def render_markdown(md: str) -> None:
+    if shutil.which("mdcat"):
+        columns = os.environ.get("FZF_PREVIEW_COLUMNS") or os.environ.get("COLUMNS") or "100"
+        subprocess.run(["mdcat", "--columns", columns], input=md, text=True, check=False)
+        return
+    sys.stdout.write(md)
+
+
+def preview_cmd(cache_path: str, cid: str) -> int:
+    conv = find_conversation(cache_path, cid)
+    if not conv:
+        print("Conversation not found.")
+        return 0
+
+    entries = sorted_entries_asc(conv)
+    md_lines = [
+        f"# {safe_text(conv.get('conversation_name')) or 'Conversation'}",
+        "",
+        f"- **Model:** `{safe_text(conv.get('model'))}`",
+        f"- **Latest:** `{safe_text(conv.get('latest_datetime'))}`",
+        f"- **Conversation ID:** `{safe_text(conv.get('conversation_id'))}`",
+        f"- **Turns:** `{len(entries)}`",
+    ]
+    for i, e in enumerate(entries, start=1):
+        md_lines.extend(
+            [
+                "",
+                "---",
+                "",
+                f"## Turn {i} ({safe_text(e.get('datetime_utc')) or 'unknown time'})",
+                "",
+                "### Prompt",
+                "",
+                safe_text(e.get("prompt")).strip() or "_(empty prompt)_",
+                "",
+                "### Response",
+                "",
+                safe_text(e.get("response")).strip() or "_(empty response)_",
+            ]
+        )
+
+    render_markdown("\n".join(md_lines).rstrip() + "\n")
+
+    return 0
+
+
+def copy_latest_response_cmd(cache_path: str, cid: str) -> int:
+    conv = find_conversation(cache_path, cid)
+    if not conv:
+        return 0
+
+    entries = sorted_entries_asc(conv)
+    latest = entries[-1] if entries else {}
+    text = safe_text(latest.get("response")).strip()
+
+    if shutil.which("pbcopy"):
+        subprocess.run(["pbcopy"], input=text, text=True, check=False)
+    return 0
+
+
+def build_obsidian_note(conv: dict[str, Any]) -> str:
+    entries = sorted_entries_asc(conv)
+    title = safe_text(conv.get("conversation_name")).strip() or "LLM Conversation"
+    safe_title = "".join(ch for ch in title if ch.isalnum() or ch in " -_").strip()[:80] or "LLM Conversation"
+
+    frontmatter = [
+        "---",
+        "tags:",
+        "  - llm",
+        "  - llmfzf",
+        f"date: {safe_text(conv.get('latest_datetime'))}",
+        f"model: {safe_text(conv.get('model'))}",
+        f"conversation_id: {safe_text(conv.get('conversation_id'))}",
+        "tool: llm",
+        f"turns: {len(entries)}",
+        "---",
+        "",
+        f"# {safe_title}",
+        "",
+    ]
+
+    body: list[str] = []
+    for i, e in enumerate(entries, start=1):
+        body.append(f"## Turn {i} - {safe_text(e.get('datetime_utc')) or 'unknown time'}")
+        body.append("")
+        body.append("### Prompt")
+        body.append("")
+        body.append(safe_text(e.get("prompt")).strip() or "_(empty prompt)_")
+        body.append("")
+        body.append("### Response")
+        body.append("")
+        body.append(safe_text(e.get("response")).strip() or "_(empty response)_")
+        body.append("")
+
+    return "\n".join(frontmatter + body).rstrip() + "\n"
+
+
+def obsidian_cmd(cache_path: str, cid: str) -> int:
+    conv = find_conversation(cache_path, cid)
+    if not conv:
+        return 0
+
+    note = build_obsidian_note(conv)
+    if shutil.which("pbcopy"):
+        subprocess.run(["pbcopy"], input=note, text=True, check=False)
+
+    title = safe_text(conv.get("conversation_name")).strip() or "LLM Conversation"
+    safe_title = "".join(ch for ch in title if ch.isalnum() or ch in " -_").strip()[:80] or "LLM Conversation"
+    date_prefix = safe_text(conv.get("latest_datetime"))[:10]
+    note_name = f"LLM {date_prefix} {safe_title}".strip()
+
+    obsidian_url = "obsidian://new?name={name}&content={content}".format(
+        name=urllib.parse.quote(note_name),
+        content=urllib.parse.quote(note),
+    )
+
+    if shutil.which("open"):
+        subprocess.run(["open", obsidian_url], check=False)
+    return 0
+
+
+def format_display_row(c: dict[str, Any]) -> str:
+    date = safe_text(c.get("latest_display"))[:16]
+    model = safe_text(c.get("model"))[:22]
+    turns = safe_text(c.get("turn_count"))
+    cid = safe_text(c.get("conversation_short_id"))[:8]
+    prompt = safe_text(c.get("prompt_preview")).replace("\n", " ").replace("\t", " ").strip()
+    if len(prompt) > 420:
+        prompt = prompt[:417] + "..."
+    return f"{date:<16}  {model:<22}  {turns:>2}  {cid:<8}  {prompt}"
+
+
+def list_rows(conversations: list[dict[str, Any]]) -> str:
+    out: list[str] = []
+    for c in conversations:
+        out.append(f"{format_display_row(c)}\t{safe_text(c.get('conversation_id'))}")
+    return "\n".join(out) + "\n"
+
+
+def run_main_ui(script_path: str) -> int:
+    llm_proc = subprocess.run(
+        ["llm", "logs", "list", "--count", "0", "--json"],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if llm_proc.returncode != 0:
+        sys.stderr.write(llm_proc.stderr or "llm logs list failed\n")
+        return llm_proc.returncode
+
+    try:
+        logs = json.loads(llm_proc.stdout)
+    except json.JSONDecodeError as exc:
+        sys.stderr.write(f"Failed to parse llm logs JSON: {exc}\n")
+        return 1
+
+    if not isinstance(logs, list):
+        sys.stderr.write("Unexpected llm logs format: expected JSON array\n")
+        return 1
+
+    conversations = build_conversations(logs)
+
+    with tempfile.NamedTemporaryFile(prefix="llmfzf-cache-", suffix=".json", delete=False) as tf:
+        cache_path = tf.name
+
+    try:
+        with open(cache_path, "w", encoding="utf-8") as f:
+            json.dump(conversations, f)
+
+        fzf_cmd = [
+            "fzf",
+            "--delimiter=\t",
+            "--with-nth=1",
+            "--accept-nth={2}",
+            "--layout=reverse",
+            "--no-mouse",
+            f"--preview={script_path} __preview {cache_path} {{2}}",
+            "--preview-window=right,40%,wrap",
+            "--header=DATE              MODEL                    N   CID       PROMPT\nCtrl-Y: Copy latest response  |  Ctrl-O: Copy whole conversation + send to Obsidian",
+            f"--bind=ctrl-y:execute-silent({script_path} __copy_latest_response {cache_path} {{2}})",
+            f"--bind=ctrl-o:execute-silent({script_path} __obsidian {cache_path} {{2}})",
+        ]
+
+        rows = list_rows(conversations)
+        proc = subprocess.run(fzf_cmd, input=rows, text=True, check=False)
+        return proc.returncode
+    finally:
+        Path(cache_path).unlink(missing_ok=True)
+
+
+def main() -> int:
+    script_path = os.path.abspath(sys.argv[0])
+
+    if len(sys.argv) >= 4 and sys.argv[1] == "__preview":
+        return preview_cmd(sys.argv[2], sys.argv[3])
+    if len(sys.argv) >= 4 and sys.argv[1] == "__copy_latest_response":
+        return copy_latest_response_cmd(sys.argv[2], sys.argv[3])
+    if len(sys.argv) >= 4 and sys.argv[1] == "__obsidian":
+        return obsidian_cmd(sys.argv[2], sys.argv[3])
+
+    return run_main_ui(script_path)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
