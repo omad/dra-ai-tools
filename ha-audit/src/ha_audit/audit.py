@@ -37,6 +37,13 @@ def _safe_rest_get(client: HomeAssistantClient, path: str, warnings: list[str]) 
         return None
 
 
+def _try_rest_get(client: HomeAssistantClient, path: str) -> tuple[Any | None, str | None]:
+    try:
+        return client.rest_get(path), None
+    except Exception as exc:
+        return None, f"REST {path} unavailable: {exc}"
+
+
 def _safe_ws(client: HomeAssistantClient, commands: list[dict[str, Any]], warnings: list[str]) -> dict[str, Any]:
     try:
         return client.run_ws_commands(commands)
@@ -96,6 +103,22 @@ def _guess_resource_tags(url: str) -> list[str]:
     return sorted(tokens)
 
 
+def _guess_hacs_plugin_matches(url: str, hacs_plugins: list[dict[str, Any]]) -> list[str]:
+    lowered = url.lower()
+    matches = []
+    for plugin in hacs_plugins:
+        candidates = {
+            str(plugin.get("name") or "").lower(),
+            str(plugin.get("domain") or "").lower(),
+            str(plugin.get("file_name") or "").lower(),
+            str(plugin.get("full_name") or "").lower().split("/")[-1],
+        }
+        candidates = {item for item in candidates if item}
+        if any(candidate in lowered for candidate in candidates):
+            matches.append(plugin.get("full_name") or plugin.get("name") or plugin.get("id"))
+    return sorted(set(matches))
+
+
 def run_audit(client: HomeAssistantClient) -> AuditReport:
     warnings: list[str] = []
 
@@ -103,9 +126,9 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
     components = _safe_rest_get(client, "/api/components", warnings) or []
     states = _safe_rest_get(client, "/api/states", warnings) or []
     services = _safe_rest_get(client, "/api/services", warnings) or []
-    integrations_catalog = _safe_rest_get(client, "/api/config/integrations", warnings) or []
-    lovelace_resources = _safe_rest_get(client, "/api/lovelace/resources", warnings)
-    lovelace_config = _safe_rest_get(client, "/api/lovelace/config", warnings)
+    integrations_catalog, integrations_warning = _try_rest_get(client, "/api/config/integrations")
+    lovelace_resources, lovelace_resources_warning = _try_rest_get(client, "/api/lovelace/resources")
+    lovelace_config, lovelace_config_warning = _try_rest_get(client, "/api/lovelace/config")
 
     ws_results = _safe_ws(
         client,
@@ -117,6 +140,7 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
             {"type": "lovelace/resources"},
             {"type": "lovelace/config", "url_path": None, "_key": "lovelace/config_default"},
             {"type": "lovelace/dashboards/list"},
+            {"type": "hacs/repositories/list", "_key": "hacs/repositories/list"},
         ],
         warnings,
     )
@@ -125,10 +149,15 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
     device_registry = ws_results.get("config/device_registry/list", {}).get("result") or []
     config_entries = ws_results.get("config_entries/get", {}).get("result") or []
     panels = ws_results.get("frontend/get_panels", {}).get("result") or {}
+    hacs_repositories = ws_results.get("hacs/repositories/list", {}).get("result") or []
     if lovelace_resources is None:
         lovelace_resources = ws_results.get("lovelace/resources", {}).get("result") or []
+    if lovelace_resources is None and lovelace_resources_warning:
+        warnings.append(lovelace_resources_warning)
     if lovelace_config is None:
         lovelace_config = ws_results.get("lovelace/config_default", {}).get("result") or {}
+    if lovelace_config is None and lovelace_config_warning:
+        warnings.append(lovelace_config_warning)
 
     dashboards = ws_results.get("lovelace/dashboards/list", {}).get("result") or []
     if dashboards:
@@ -157,6 +186,14 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
         if merged_dashboards:
             lovelace_config = _merge_dashboard_payloads(merged_dashboards)
 
+    hacs_ws_response = ws_results.get("hacs/repositories/list")
+    if integrations_catalog is None and not hacs_repositories and integrations_warning:
+        warnings.append(integrations_warning)
+    if "hacs" in components and hacs_ws_response is None:
+        warnings.append("WS hacs/repositories/list unavailable even though HACS appears to be loaded")
+    if "hacs" in components and hacs_ws_response and not hacs_ws_response.get("success", True):
+        warnings.append(f"HACS websocket lookup failed: {hacs_ws_response.get('error')}")
+
     state_domains = Counter(item["entity_id"].split(".", 1)[0] for item in states if "entity_id" in item)
     service_domains = Counter(item["domain"] for item in services if "domain" in item)
     registry_domains = Counter(item["entity_id"].split(".", 1)[0] for item in entity_registry if "entity_id" in item)
@@ -167,6 +204,14 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
     elif isinstance(integrations_catalog, dict):
         integrations_by_domain = integrations_catalog
 
+    hacs_integrations = [
+        repo for repo in hacs_repositories if repo.get("installed") and repo.get("category") == "integration"
+    ]
+    hacs_plugins = [repo for repo in hacs_repositories if repo.get("installed") and repo.get("category") == "plugin"]
+    hacs_integrations_by_domain = {
+        repo.get("domain"): repo for repo in hacs_integrations if repo.get("domain")
+    }
+
     dashboard_custom_cards = _extract_custom_card_types(lovelace_config)
     dashboard_domain_refs = _count_domain_references(lovelace_config, set(state_domains) | set(registry_domains))
 
@@ -176,11 +221,13 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
             entry_devices[entry_id] += 1
 
     custom_integrations: list[dict[str, Any]] = []
+    seen_domains: set[str] = set()
     for entry in config_entries:
         domain = entry.get("domain")
         entry_id = entry.get("entry_id")
         catalog = integrations_by_domain.get(domain, {})
-        is_custom = catalog.get("is_built_in") is False
+        hacs_repo = hacs_integrations_by_domain.get(domain, {})
+        is_custom = catalog.get("is_built_in") is False or bool(hacs_repo)
         if not is_custom:
             continue
 
@@ -207,12 +254,55 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
         custom_integrations.append(
             {
                 "domain": domain,
-                "title": entry.get("title") or catalog.get("name") or domain,
+                "title": entry.get("title") or catalog.get("name") or hacs_repo.get("name") or domain,
                 "entry_id": entry_id,
+                "source": "hacs" if hacs_repo else "home_assistant",
+                "repository": hacs_repo.get("full_name"),
                 "loaded": loaded,
                 "entities": entities,
                 "live_entities": live_entities,
                 "devices": devices,
+                "services": services_count,
+                "dashboard_references": dashboard_refs,
+                "usage_score": score,
+                "candidate_unused": score <= 1,
+                "reasons": reasons,
+            }
+        )
+        seen_domains.add(domain)
+
+    for domain, hacs_repo in hacs_integrations_by_domain.items():
+        if domain in seen_domains:
+            continue
+        entities = registry_domains.get(domain, 0)
+        live_entities = state_domains.get(domain, 0)
+        services_count = service_domains.get(domain, 0)
+        dashboard_refs = dashboard_domain_refs.get(domain, 0)
+        loaded = domain in components
+        score = entities + live_entities + services_count + dashboard_refs + int(loaded)
+
+        reasons = []
+        if not loaded:
+            reasons.append("component not loaded")
+        if entities == 0 and live_entities == 0:
+            reasons.append("no entities found")
+        if services_count == 0:
+            reasons.append("no services exposed")
+        if dashboard_refs == 0:
+            reasons.append("not referenced in Lovelace config")
+        reasons.append("installed in HACS but no config entry found")
+
+        custom_integrations.append(
+            {
+                "domain": domain,
+                "title": hacs_repo.get("name") or domain,
+                "entry_id": None,
+                "source": "hacs",
+                "repository": hacs_repo.get("full_name"),
+                "loaded": loaded,
+                "entities": entities,
+                "live_entities": live_entities,
+                "devices": 0,
                 "services": services_count,
                 "dashboard_references": dashboard_refs,
                 "usage_score": score,
@@ -229,12 +319,14 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
             url = resource.get("url") or resource.get("id") or ""
             guessed_tags = _guess_resource_tags(url)
             matched_tags = sorted(set(guessed_tags) & set(dashboard_custom_cards))
+            matched_hacs_plugins = _guess_hacs_plugin_matches(url, hacs_plugins)
             frontend_resources_report.append(
                 {
                     "url": url,
                     "resource_type": resource.get("type"),
                     "guessed_tags": guessed_tags,
                     "matched_custom_cards": matched_tags,
+                    "matched_hacs_plugins": matched_hacs_plugins,
                     "candidate_unused": len(matched_tags) == 0 and bool(dashboard_custom_cards),
                 }
             )
@@ -263,6 +355,8 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
         "config_entries": len(config_entries),
         "custom_integrations": len(custom_integrations),
         "candidate_unused_custom_integrations": sum(1 for item in custom_integrations if item["candidate_unused"]),
+        "hacs_installed_integrations": len(hacs_integrations),
+        "hacs_installed_plugins": len(hacs_plugins),
         "frontend_resources": len(frontend_resources_report),
         "candidate_unused_frontend_resources": sum(1 for item in frontend_resources_report if item["candidate_unused"]),
         "custom_cards_detected": dashboard_custom_cards,
@@ -303,6 +397,8 @@ def render_text_report(report: AuditReport) -> str:
                 f"score={item['usage_score']}, entities={item['entities']}, live_entities={item['live_entities']}, "
                 f"devices={item['devices']}, services={item['services']}, dashboard_refs={item['dashboard_references']}"
             )
+            if item.get("repository"):
+                lines.append(f"  repository: {item['repository']}")
             if item["reasons"]:
                 lines.append(f"  reasons: {', '.join(item['reasons'])}")
     else:
@@ -316,6 +412,8 @@ def render_text_report(report: AuditReport) -> str:
             lines.append(
                 f"- {prefix} {item['url']} type={item['resource_type']} matched_cards={item['matched_custom_cards']}"
             )
+            if item.get("matched_hacs_plugins"):
+                lines.append(f"  HACS plugins: {item['matched_hacs_plugins']}")
     else:
         lines.append("- No Lovelace resources found.")
 

@@ -45,6 +45,9 @@ class TokenStore:
     def load(self, base_url: str) -> dict[str, Any] | None:
         return self.load_all().get(base_url)
 
+    def list_base_urls(self) -> list[str]:
+        return sorted(self.load_all())
+
     def save(self, base_url: str, payload: dict[str, Any]) -> None:
         data = self.load_all()
         data[base_url] = payload
