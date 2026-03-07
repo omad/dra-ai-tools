@@ -1,0 +1,17 @@
+[project]
+name = "ha-audit"
+version = "0.1.0"
+description = "CLI to audit a Home Assistant instance for likely unused integrations and frontend resources"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "requests>=2.32.0",
+  "websockets>=12.0",
+]
+
+[project.scripts]
+ha-audit = "ha_audit.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.28,<0.10.0"]
+build-backend = "uv_build"
