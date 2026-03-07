@@ -1,0 +1,521 @@
+loki_cache_background_dequeued_bytes_total{name="chunksmemcache"} 2.1254995e+07
+loki_cache_background_enqueued_bytes_total{name="chunksmemcache"} 2.1254995e+07
+loki_cache_background_queue_bytes{name="chunksmemcache"} 0
+loki_cache_background_queue_length{name="chunksmemcache"} 0
+# HELP loki_cache_corrupt_chunks_total Total count of corrupt chunks found in cache.
+# TYPE loki_cache_corrupt_chunks_total counter
+loki_cache_corrupt_chunks_total 0
+loki_cache_dropped_background_writes_bytes_total{name="chunksmemcache"} 0
+loki_cache_dropped_background_writes_total{name="chunksmemcache"} 0
+loki_cache_fetched_keys{name="chunksmemcache"} 2352
+loki_cache_hits{name="chunksmemcache"} 1470
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="1.6e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="6.4e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.000256"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.001024"} 918
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.004096"} 1924
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.016384"} 2108
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.065536"} 2231
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="0.262144"} 2274
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200",le="+Inf"} 2325
+loki_cache_request_duration_seconds_sum{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200"} 249.81301446299983
+loki_cache_request_duration_seconds_count{method="chunksmemcache.fetch",name="chunksmemcache",status_code="200"} 2325
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="1.6e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="6.4e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.000256"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.001024"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.004096"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.016384"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.065536"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="0.262144"} 3
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500",le="+Inf"} 27
+loki_cache_request_duration_seconds_sum{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500"} 222.81295924599996
+loki_cache_request_duration_seconds_count{method="chunksmemcache.fetch",name="chunksmemcache",status_code="500"} 27
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="1.6e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="6.4e-05"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.000256"} 0
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.001024"} 342
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.004096"} 752
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.016384"} 829
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.065536"} 864
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="0.262144"} 875
+loki_cache_request_duration_seconds_bucket{method="chunksmemcache.store",name="chunksmemcache",status_code="200",le="+Inf"} 879
+loki_cache_request_duration_seconds_sum{method="chunksmemcache.store",name="chunksmemcache",status_code="200"} 5.722346478000001
+loki_cache_request_duration_seconds_count{method="chunksmemcache.store",name="chunksmemcache",status_code="200"} 879
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="1024"} 471
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="4096"} 985
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="16384"} 1160
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="65536"} 1389
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="262144"} 1463
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="1.048576e+06"} 1470
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="4.194304e+06"} 1470
+loki_cache_value_size_bytes_bucket{method="fetch",name="chunksmemcache",le="+Inf"} 1470
+loki_cache_value_size_bytes_sum{method="fetch",name="chunksmemcache"} 2.2455275e+07
+loki_cache_value_size_bytes_count{method="fetch",name="chunksmemcache"} 1470
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="1024"} 208
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="4096"} 478
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="16384"} 644
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="65536"} 794
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="262144"} 873
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="1.048576e+06"} 879
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="4.194304e+06"} 879
+loki_cache_value_size_bytes_bucket{method="store",name="chunksmemcache",le="+Inf"} 879
+loki_cache_value_size_bytes_sum{method="store",name="chunksmemcache"} 2.1254995e+07
+loki_cache_value_size_bytes_count{method="store",name="chunksmemcache"} 879
+# HELP loki_chunk_store_chunks_per_query Distribution of #chunks per query.
+# TYPE loki_chunk_store_chunks_per_query histogram
+loki_chunk_store_chunks_per_query_bucket{le="10"} 0
+loki_chunk_store_chunks_per_query_bucket{le="80"} 0
+loki_chunk_store_chunks_per_query_bucket{le="640"} 0
+loki_chunk_store_chunks_per_query_bucket{le="5120"} 0
+loki_chunk_store_chunks_per_query_bucket{le="40960"} 0
+loki_chunk_store_chunks_per_query_bucket{le="327680"} 0
+loki_chunk_store_chunks_per_query_bucket{le="2.62144e+06"} 0
+loki_chunk_store_chunks_per_query_bucket{le="+Inf"} 0
+loki_chunk_store_chunks_per_query_sum 0
+loki_chunk_store_chunks_per_query_count 0
+# HELP loki_chunk_store_deduped_bytes_total Count of bytes from chunks which were not stored because they have already been stored by another replica.
+# TYPE loki_chunk_store_deduped_bytes_total counter
+loki_chunk_store_deduped_bytes_total 2.2455275e+07
+# HELP loki_chunk_store_deduped_chunks_total Count of chunks which were not stored because they have already been stored by another replica.
+# TYPE loki_chunk_store_deduped_chunks_total counter
+loki_chunk_store_deduped_chunks_total 1470
+# HELP loki_chunk_store_index_entries_per_chunk Number of entries written to storage per chunk.
+# TYPE loki_chunk_store_index_entries_per_chunk histogram
+loki_chunk_store_index_entries_per_chunk_bucket{le="1"} 0
+loki_chunk_store_index_entries_per_chunk_bucket{le="2"} 0
+loki_chunk_store_index_entries_per_chunk_bucket{le="4"} 0
+loki_chunk_store_index_entries_per_chunk_bucket{le="8"} 0
+loki_chunk_store_index_entries_per_chunk_bucket{le="16"} 0
+loki_chunk_store_index_entries_per_chunk_bucket{le="+Inf"} 0
+loki_chunk_store_index_entries_per_chunk_sum 0
+loki_chunk_store_index_entries_per_chunk_count 0
+# HELP loki_chunk_store_index_lookups_per_query Distribution of #index lookups per query.
+# TYPE loki_chunk_store_index_lookups_per_query histogram
+loki_chunk_store_index_lookups_per_query_bucket{le="1"} 0
+loki_chunk_store_index_lookups_per_query_bucket{le="2"} 0
+loki_chunk_store_index_lookups_per_query_bucket{le="4"} 0
+loki_chunk_store_index_lookups_per_query_bucket{le="8"} 0
+loki_chunk_store_index_lookups_per_query_bucket{le="16"} 0
+loki_chunk_store_index_lookups_per_query_bucket{le="+Inf"} 0
+loki_chunk_store_index_lookups_per_query_sum 0
+loki_chunk_store_index_lookups_per_query_count 0
+# HELP loki_chunk_store_series_post_intersection_per_query Distribution of #series (post intersection) per query.
+# TYPE loki_chunk_store_series_post_intersection_per_query histogram
+loki_chunk_store_series_post_intersection_per_query_bucket{le="10"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="80"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="640"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="5120"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="40960"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="327680"} 0
+loki_chunk_store_series_post_intersection_per_query_bucket{le="+Inf"} 0
+loki_chunk_store_series_post_intersection_per_query_sum 0
+loki_chunk_store_series_post_intersection_per_query_count 0
+# HELP loki_chunk_store_series_pre_intersection_per_query Distribution of #series (pre intersection) per query.
+# TYPE loki_chunk_store_series_pre_intersection_per_query histogram
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="10"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="80"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="640"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="5120"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="40960"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="327680"} 0
+loki_chunk_store_series_pre_intersection_per_query_bucket{le="+Inf"} 0
+loki_chunk_store_series_pre_intersection_per_query_sum 0
+loki_chunk_store_series_pre_intersection_per_query_count 0
+# HELP loki_chunk_store_stored_chunk_bytes_total Total bytes stored in chunks per user.
+# TYPE loki_chunk_store_stored_chunk_bytes_total counter
+loki_chunk_store_stored_chunk_bytes_total{user="fake"} 2.0957316e+07
+# HELP loki_chunk_store_stored_chunks_total Total stored chunks per user.
+# TYPE loki_chunk_store_stored_chunks_total counter
+loki_chunk_store_stored_chunks_total{user="fake"} 879
+# HELP loki_discarded_bytes_total The total number of bytes that were discarded.
+# TYPE loki_discarded_bytes_total counter
+loki_discarded_bytes_total{format="",policy="",reason="too_far_behind",retention_hours="744",tenant="fake"} 1.164595157e+09
+loki_discarded_bytes_total{format="loki",policy="",reason="rate_limited",retention_hours="744",tenant="fake"} 4.0887365e+07
+# HELP loki_discarded_samples_total The total number of samples that were discarded.
+# TYPE loki_discarded_samples_total counter
+loki_discarded_samples_total{format="",policy="",reason="too_far_behind",retention_hours="744",tenant="fake"} 6.339864e+06
+loki_discarded_samples_total{format="loki",policy="",reason="rate_limited",retention_hours="744",tenant="fake"} 198104
+loki_distributor_bytes_received_total{format="loki",is_internal_stream="false",policy="",retention_hours="744",tenant="fake"} 7.94383469e+08
+loki_distributor_lines_received_total{format="loki",is_internal_stream="false",policy="",tenant="fake"} 4.123385e+06
+loki_distributor_structured_metadata_bytes_received_total{format="loki",is_internal_stream="false",policy="",retention_hours="744",tenant="fake"} 0
+loki_dns_failures_total{name="chunks"} 1
+loki_dns_lookups_total{name="chunks"} 495
+loki_dns_provider_results{addr="dnssrvnoa+_memcached-client._tcp.loki-simple-scalable-chunks-cache.admin.svc.cluster.local",name="chunks"} 1
+# HELP loki_grpc_concurrent_streams_limit The max number of concurrent streams that can be accepted (0 means no limit).
+# TYPE loki_grpc_concurrent_streams_limit gauge
+loki_grpc_concurrent_streams_limit 100
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.005"} 1019
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.012301915262620913"} 1030
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.03026742382574107"} 1032
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.07446945662441999"} 1034
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.18322338900940766"} 1038
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="0.4507997211447921"} 1041
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="1.109139993987274"} 1041
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="2.7289092440830625"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="6.7141620560185435"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="16.519410534528944"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="40.644077716844464"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="99.99999999999989"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200",le="+Inf"} 1042
+loki_index_request_duration_seconds_sum{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200"} 4.3557650170000075
+loki_index_request_duration_seconds_count{component="index-store-tsdb-2024-04-01",operation="chunk_refs",status_code="200"} 1042
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.005"} 2227
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.012301915262620913"} 2282
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.03026742382574107"} 2309
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.07446945662441999"} 2323
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.18322338900940766"} 2331
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="0.4507997211447921"} 2336
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="1.109139993987274"} 2340
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="2.7289092440830625"} 2347
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="6.7141620560185435"} 2349
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="16.519410534528944"} 2349
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="40.644077716844464"} 2349
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="99.99999999999989"} 2349
+loki_index_request_duration_seconds_bucket{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200",le="+Inf"} 2349
+loki_index_request_duration_seconds_sum{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200"} 29.468063579000024
+loki_index_request_duration_seconds_count{component="index-store-tsdb-2024-04-01",operation="index_chunk",status_code="200"} 2349
+# HELP loki_ingester_blocks_per_chunk The number of blocks in a chunk.
+# TYPE loki_ingester_blocks_per_chunk histogram
+loki_ingester_blocks_per_chunk_bucket{le="5"} 496
+loki_ingester_blocks_per_chunk_bucket{le="10"} 517
+loki_ingester_blocks_per_chunk_bucket{le="20"} 520
+loki_ingester_blocks_per_chunk_bucket{le="40"} 520
+loki_ingester_blocks_per_chunk_bucket{le="80"} 520
+loki_ingester_blocks_per_chunk_bucket{le="160"} 520
+loki_ingester_blocks_per_chunk_bucket{le="+Inf"} 520
+loki_ingester_blocks_per_chunk_sum 934
+loki_ingester_blocks_per_chunk_count 520
+# HELP loki_ingester_chunk_age_seconds Distribution of chunk ages (when stored).
+# TYPE loki_ingester_chunk_age_seconds histogram
+loki_ingester_chunk_age_seconds_bucket{le="60"} 0
+loki_ingester_chunk_age_seconds_bucket{le="300"} 3
+loki_ingester_chunk_age_seconds_bucket{le="600"} 4
+loki_ingester_chunk_age_seconds_bucket{le="1800"} 6
+loki_ingester_chunk_age_seconds_bucket{le="3600"} 566
+loki_ingester_chunk_age_seconds_bucket{le="7200"} 801
+loki_ingester_chunk_age_seconds_bucket{le="14400"} 1391
+loki_ingester_chunk_age_seconds_bucket{le="36000"} 1807
+loki_ingester_chunk_age_seconds_bucket{le="43200"} 1898
+loki_ingester_chunk_age_seconds_bucket{le="57600"} 1998
+loki_ingester_chunk_age_seconds_bucket{le="+Inf"} 2349
+loki_ingester_chunk_age_seconds_sum 9.786769365018232e+07
+loki_ingester_chunk_age_seconds_count 2349
+# HELP loki_ingester_chunk_bounds_hours Distribution of chunk end-start durations.
+# TYPE loki_ingester_chunk_bounds_hours histogram
+loki_ingester_chunk_bounds_hours_bucket{le="1"} 1354
+loki_ingester_chunk_bounds_hours_bucket{le="2"} 1585
+loki_ingester_chunk_bounds_hours_bucket{le="3"} 2063
+loki_ingester_chunk_bounds_hours_bucket{le="4"} 2139
+loki_ingester_chunk_bounds_hours_bucket{le="5"} 2160
+loki_ingester_chunk_bounds_hours_bucket{le="6"} 2177
+loki_ingester_chunk_bounds_hours_bucket{le="7"} 2223
+loki_ingester_chunk_bounds_hours_bucket{le="8"} 2226
+loki_ingester_chunk_bounds_hours_bucket{le="+Inf"} 2349
+loki_ingester_chunk_bounds_hours_sum 5950.597243895274
+loki_ingester_chunk_bounds_hours_count 2349
+# HELP loki_ingester_chunk_compression_ratio Compression ratio of chunks (when stored).
+# TYPE loki_ingester_chunk_compression_ratio histogram
+loki_ingester_chunk_compression_ratio_bucket{le="0.75"} 548
+loki_ingester_chunk_compression_ratio_bucket{le="2.75"} 1314
+loki_ingester_chunk_compression_ratio_bucket{le="4.75"} 1726
+loki_ingester_chunk_compression_ratio_bucket{le="6.75"} 2150
+loki_ingester_chunk_compression_ratio_bucket{le="8.75"} 2338
+loki_ingester_chunk_compression_ratio_bucket{le="10.75"} 2349
+loki_ingester_chunk_compression_ratio_bucket{le="12.75"} 2349
+loki_ingester_chunk_compression_ratio_bucket{le="14.75"} 2349
+loki_ingester_chunk_compression_ratio_bucket{le="16.75"} 2349
+loki_ingester_chunk_compression_ratio_bucket{le="18.75"} 2349
+loki_ingester_chunk_compression_ratio_bucket{le="+Inf"} 2349
+loki_ingester_chunk_compression_ratio_sum 6927.367463161825
+loki_ingester_chunk_compression_ratio_count 2349
+# HELP loki_ingester_chunk_encode_time_seconds Distribution of chunk encode times.
+# TYPE loki_ingester_chunk_encode_time_seconds histogram
+loki_ingester_chunk_encode_time_seconds_bucket{le="0.01"} 2157
+loki_ingester_chunk_encode_time_seconds_bucket{le="0.04"} 2237
+loki_ingester_chunk_encode_time_seconds_bucket{le="0.16"} 2277
+loki_ingester_chunk_encode_time_seconds_bucket{le="0.64"} 2292
+loki_ingester_chunk_encode_time_seconds_bucket{le="2.56"} 2300
+loki_ingester_chunk_encode_time_seconds_bucket{le="10.24"} 2325
+loki_ingester_chunk_encode_time_seconds_bucket{le="+Inf"} 2352
+loki_ingester_chunk_encode_time_seconds_sum 693.5844348559997
+loki_ingester_chunk_encode_time_seconds_count 2352
+# HELP loki_ingester_chunk_entries Distribution of stored lines per chunk (when stored).
+# TYPE loki_ingester_chunk_entries histogram
+loki_ingester_chunk_entries_bucket{le="200"} 1684
+loki_ingester_chunk_entries_bucket{le="400"} 1833
+loki_ingester_chunk_entries_bucket{le="800"} 1981
+loki_ingester_chunk_entries_bucket{le="1600"} 2158
+loki_ingester_chunk_entries_bucket{le="3200"} 2270
+loki_ingester_chunk_entries_bucket{le="6400"} 2326
+loki_ingester_chunk_entries_bucket{le="12800"} 2341
+loki_ingester_chunk_entries_bucket{le="25600"} 2349
+loki_ingester_chunk_entries_bucket{le="51200"} 2349
+loki_ingester_chunk_entries_bucket{le="+Inf"} 2349
+loki_ingester_chunk_entries_sum 1.152126e+06
+loki_ingester_chunk_entries_count 2349
+# HELP loki_ingester_chunk_size_bytes Distribution of stored chunk sizes (when stored).
+# TYPE loki_ingester_chunk_size_bytes histogram
+loki_ingester_chunk_size_bytes_bucket{le="20000"} 1820
+loki_ingester_chunk_size_bytes_bucket{le="40000"} 2064
+loki_ingester_chunk_size_bytes_bucket{le="80000"} 2208
+loki_ingester_chunk_size_bytes_bucket{le="160000"} 2280
+loki_ingester_chunk_size_bytes_bucket{le="320000"} 2344
+loki_ingester_chunk_size_bytes_bucket{le="640000"} 2349
+loki_ingester_chunk_size_bytes_bucket{le="1.28e+06"} 2349
+loki_ingester_chunk_size_bytes_bucket{le="2.56e+06"} 2349
+loki_ingester_chunk_size_bytes_bucket{le="5.12e+06"} 2349
+loki_ingester_chunk_size_bytes_bucket{le="1.024e+07"} 2349
+loki_ingester_chunk_size_bytes_bucket{le="+Inf"} 2349
+loki_ingester_chunk_size_bytes_sum 4.371027e+07
+loki_ingester_chunk_size_bytes_count 2349
+# HELP loki_ingester_chunk_stored_bytes_total Total bytes stored in chunks per tenant.
+# TYPE loki_ingester_chunk_stored_bytes_total counter
+loki_ingester_chunk_stored_bytes_total{tenant="fake"} 4.371027e+07
+# HELP loki_ingester_chunk_utilization Distribution of stored chunk utilization (when stored).
+# TYPE loki_ingester_chunk_utilization histogram
+loki_ingester_chunk_utilization_bucket{le="0"} 0
+loki_ingester_chunk_utilization_bucket{le="0.2"} 2344
+loki_ingester_chunk_utilization_bucket{le="0.4"} 2349
+loki_ingester_chunk_utilization_bucket{le="0.6000000000000001"} 2349
+loki_ingester_chunk_utilization_bucket{le="0.8"} 2349
+loki_ingester_chunk_utilization_bucket{le="1"} 2349
+loki_ingester_chunk_utilization_bucket{le="+Inf"} 2349
+loki_ingester_chunk_utilization_sum 27.2835025787353
+loki_ingester_chunk_utilization_count 2349
+# HELP loki_ingester_chunks_created_total The total number of chunks created in the ingester.
+# TYPE loki_ingester_chunks_created_total counter
+loki_ingester_chunks_created_total 2372
+# HELP loki_ingester_chunks_encoded_total The total number of chunks encoded in the ingester.
+# TYPE loki_ingester_chunks_encoded_total counter
+loki_ingester_chunks_encoded_total{user="fake"} 2352
+# HELP loki_ingester_chunks_flush_failures_total Total number of flush failures.
+# TYPE loki_ingester_chunks_flush_failures_total counter
+loki_ingester_chunks_flush_failures_total 3
+# HELP loki_ingester_chunks_flush_requests_total Total number of flush requests (successful or not).
+# TYPE loki_ingester_chunks_flush_requests_total counter
+loki_ingester_chunks_flush_requests_total 2352
+# HELP loki_ingester_chunks_flushed_total Total flushed chunks per reason.
+# TYPE loki_ingester_chunks_flushed_total counter
+loki_ingester_chunks_flushed_total{reason="full"} 14
+loki_ingester_chunks_flushed_total{reason="idle"} 1434
+loki_ingester_chunks_flushed_total{reason="max_age"} 590
+loki_ingester_chunks_flushed_total{reason="synced"} 311
+# HELP loki_ingester_chunks_stored_total Total stored chunks per tenant.
+# TYPE loki_ingester_chunks_stored_total counter
+loki_ingester_chunks_stored_total{tenant="fake"} 2349
+# HELP loki_ingester_flush_queue_length The total number of series pending in the flush queue.
+# TYPE loki_ingester_flush_queue_length gauge
+loki_ingester_flush_queue_length 0
+# HELP loki_ingester_memory_chunks The total number of chunks in memory.
+# TYPE loki_ingester_memory_chunks gauge
+loki_ingester_memory_chunks 142
+# HELP loki_ingester_memory_streams The total number of streams in memory per tenant.
+# TYPE loki_ingester_memory_streams gauge
+loki_ingester_memory_streams{tenant="fake"} 141
+# HELP loki_ingester_memory_streams_labels_bytes Total bytes of labels of the streams in memory.
+# TYPE loki_ingester_memory_streams_labels_bytes gauge
+loki_ingester_memory_streams_labels_bytes 28187
+# HELP loki_ingester_not_owned_streams The total number of not owned streams in memory.
+# TYPE loki_ingester_not_owned_streams gauge
+loki_ingester_not_owned_streams 0
+# HELP loki_ingester_samples_per_chunk The number of samples in a chunk.
+# TYPE loki_ingester_samples_per_chunk histogram
+loki_ingester_samples_per_chunk_bucket{le="4096"} 480
+loki_ingester_samples_per_chunk_bucket{le="6144"} 502
+loki_ingester_samples_per_chunk_bucket{le="8192"} 510
+loki_ingester_samples_per_chunk_bucket{le="10240"} 512
+loki_ingester_samples_per_chunk_bucket{le="12288"} 513
+loki_ingester_samples_per_chunk_bucket{le="14336"} 513
+loki_ingester_samples_per_chunk_bucket{le="+Inf"} 520
+loki_ingester_samples_per_chunk_sum 827697
+loki_ingester_samples_per_chunk_count 520
+# HELP loki_ingester_streams_created_total The total number of streams created per tenant.
+# TYPE loki_ingester_streams_created_total counter
+loki_ingester_streams_created_total{tenant="fake"} 1961
+# HELP loki_ingester_streams_ownership_check_duration_ms Distribution of streams ownership check durations in milliseconds.
+# TYPE loki_ingester_streams_ownership_check_duration_ms histogram
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="1"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="4"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="16"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="64"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="256"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="1024"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="4096"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="16384"} 0
+loki_ingester_streams_ownership_check_duration_ms_bucket{le="+Inf"} 0
+loki_ingester_streams_ownership_check_duration_ms_sum 0
+loki_ingester_streams_ownership_check_duration_ms_count 0
+# HELP loki_ingester_streams_removed_total The total number of streams removed per tenant.
+# TYPE loki_ingester_streams_removed_total counter
+loki_ingester_streams_removed_total{tenant="fake"} 1820
+# HELP loki_ingester_wal_discarded_bytes_total WAL segment bytes discarded during replay
+# TYPE loki_ingester_wal_discarded_bytes_total counter
+loki_ingester_wal_discarded_bytes_total{reason="duplicate"} 2.387186e+06
+# HELP loki_ingester_wal_discarded_samples_total WAL segment entries discarded during replay
+# TYPE loki_ingester_wal_discarded_samples_total counter
+loki_ingester_wal_discarded_samples_total{reason="duplicate"} 12395
+# HELP loki_ingester_wal_duplicate_entries_total Entries discarded during WAL replay due to existing in checkpoints.
+# HELP loki_ingester_wal_recovered_chunks_total Total number of chunks recovered from the WAL checkpoints.
+# TYPE loki_ingester_wal_recovered_chunks_total counter
+loki_ingester_wal_recovered_chunks_total 109
+# HELP loki_ingester_wal_recovered_streams_total Total number of streams recovered from the WAL.
+# TYPE loki_ingester_wal_recovered_streams_total counter
+loki_ingester_wal_recovered_streams_total 389
+# HELP loki_ingester_wal_replay_flushing Whether the wal replay is in a flushing phase due to backpressure
+# TYPE loki_ingester_wal_replay_flushing gauge
+loki_ingester_wal_replay_flushing 0
+# HELP loki_log_flushes Histogram of log flushes using the line-buffered logger.
+# TYPE loki_log_flushes histogram
+loki_log_flushes_bucket{le="1"} 4197
+loki_log_flushes_bucket{le="2"} 5812
+loki_log_flushes_bucket{le="4"} 6392
+loki_log_flushes_bucket{le="8"} 6487
+loki_log_flushes_bucket{le="16"} 6950
+loki_log_flushes_bucket{le="32"} 6954
+loki_log_flushes_bucket{le="64"} 6955
+loki_log_flushes_bucket{le="128"} 6955
+loki_log_flushes_bucket{le="256"} 6955
+loki_log_flushes_bucket{le="+Inf"} 6955
+loki_log_flushes_sum 15675
+loki_log_flushes_count 6955
+# HELP loki_memberlist_tcp_transport_incoming_streams_total Number of incoming memberlist streams
+# TYPE loki_memberlist_tcp_transport_incoming_streams_total counter
+loki_memberlist_tcp_transport_incoming_streams_total 1026
+# HELP loki_memberlist_tcp_transport_outgoing_stream_errors_total Number of errors when opening memberlist stream to another node
+# TYPE loki_memberlist_tcp_transport_outgoing_stream_errors_total counter
+loki_memberlist_tcp_transport_outgoing_stream_errors_total 9
+# HELP loki_memberlist_tcp_transport_outgoing_streams_total Number of outgoing streams
+# TYPE loki_memberlist_tcp_transport_outgoing_streams_total counter
+loki_memberlist_tcp_transport_outgoing_streams_total 996
+# HELP loki_memberlist_tcp_transport_unknown_connections_total Number of unknown TCP connections (not a packet or stream)
+loki_memcache_client_servers{name="chunks"} 1
+loki_memcache_client_set_skip_total{name="chunks"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="1.6e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="6.4e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.000256"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.001024"} 937
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.004096"} 1924
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.016384"} 2108
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.065536"} 2231
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.15"} 2264
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.25"} 2270
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="0.5"} 2281
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="1"} 2290
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="200",le="+Inf"} 2325
+loki_memcache_request_duration_seconds_sum{method="Memcache.GetBatched",name="chunks",status_code="200"} 249.79286079500005
+loki_memcache_request_duration_seconds_count{method="Memcache.GetBatched",name="chunks",status_code="200"} 2325
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="1.6e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="6.4e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.000256"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.001024"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.004096"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.016384"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.065536"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.15"} 1
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.25"} 3
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="0.5"} 8
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="1"} 8
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetBatched",name="chunks",status_code="500",le="+Inf"} 27
+loki_memcache_request_duration_seconds_sum{method="Memcache.GetBatched",name="chunks",status_code="500"} 217.54806731299993
+loki_memcache_request_duration_seconds_count{method="Memcache.GetBatched",name="chunks",status_code="500"} 27
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="1.6e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="6.4e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.000256"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.001024"} 1105
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.004096"} 1944
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.016384"} 2142
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.065536"} 2241
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.15"} 2269
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.25"} 2275
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="0.5"} 2287
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="1"} 2294
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="200",le="+Inf"} 2325
+loki_memcache_request_duration_seconds_sum{method="Memcache.GetMulti",name="chunks",status_code="200"} 137.82171676600015
+loki_memcache_request_duration_seconds_count{method="Memcache.GetMulti",name="chunks",status_code="200"} 2325
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="1.6e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="6.4e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.000256"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.001024"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.004096"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.016384"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.065536"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.15"} 1
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.25"} 3
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="0.5"} 8
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="1"} 8
+loki_memcache_request_duration_seconds_bucket{method="Memcache.GetMulti",name="chunks",status_code="500",le="+Inf"} 27
+loki_memcache_request_duration_seconds_sum{method="Memcache.GetMulti",name="chunks",status_code="500"} 147.31496678100004
+loki_memcache_request_duration_seconds_count{method="Memcache.GetMulti",name="chunks",status_code="500"} 27
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="1.6e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="6.4e-05"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.000256"} 0
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.001024"} 351
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.004096"} 754
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.016384"} 829
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.065536"} 864
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.15"} 873
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.25"} 874
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="0.5"} 878
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="1"} 879
+loki_memcache_request_duration_seconds_bucket{method="Memcache.Put",name="chunks",status_code="200",le="+Inf"} 879
+loki_memcache_request_duration_seconds_sum{method="Memcache.Put",name="chunks",status_code="200"} 5.710035846
+loki_memcache_request_duration_seconds_count{method="Memcache.Put",name="chunks",status_code="200"} 879
+# HELP loki_rate_store_expired_streams_total The number of streams that have been expired by the ratestore
+# TYPE loki_rate_store_expired_streams_total counter
+loki_rate_store_expired_streams_total 2032
+# HELP loki_rate_store_max_stream_rate_bytes The maximum stream rate for any stream reported by ingesters during a sync operation. Sharded Streams are combined.
+# TYPE loki_rate_store_max_stream_rate_bytes gauge
+loki_rate_store_max_stream_rate_bytes 19642
+# HELP loki_rate_store_max_stream_shards The number of shards for a single stream reported by ingesters during a sync operation.
+# TYPE loki_rate_store_max_stream_shards gauge
+loki_rate_store_max_stream_shards 1
+# HELP loki_rate_store_max_unique_stream_rate_bytes The maximum stream rate for any stream reported by ingesters during a sync operation. Sharded Streams are considered separate.
+# TYPE loki_rate_store_max_unique_stream_rate_bytes gauge
+loki_rate_store_max_unique_stream_rate_bytes 20245
+# HELP loki_rate_store_refresh_failures_total The total number of failed attempts to refresh the distributor's view of stream rates
+# HELP loki_rate_store_stream_rate_bytes The distribution of stream rates for any stream reported by ingesters during a sync operation. Sharded Streams are combined.
+# TYPE loki_rate_store_stream_rate_bytes histogram
+loki_rate_store_stream_rate_bytes_bucket{le="20000"} 4.932641e+06
+loki_rate_store_stream_rate_bytes_bucket{le="40000"} 4.938818e+06
+loki_rate_store_stream_rate_bytes_bucket{le="80000"} 4.941652e+06
+loki_rate_store_stream_rate_bytes_bucket{le="160000"} 4.943951e+06
+loki_rate_store_stream_rate_bytes_bucket{le="320000"} 4.945593e+06
+loki_rate_store_stream_rate_bytes_bucket{le="640000"} 4.946662e+06
+loki_rate_store_stream_rate_bytes_bucket{le="1.28e+06"} 4.947234e+06
+loki_rate_store_stream_rate_bytes_bucket{le="2.56e+06"} 4.947471e+06
+loki_rate_store_stream_rate_bytes_bucket{le="5.12e+06"} 4.947533e+06
+loki_rate_store_stream_rate_bytes_bucket{le="1.024e+07"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_bucket{le="2.048e+07"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_bucket{le="4.096e+07"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_bucket{le="8.192e+07"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_bucket{le="1.6384e+08"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_bucket{le="+Inf"} 4.947534e+06
+loki_rate_store_stream_rate_bytes_sum 3.439840561e+09
+loki_rate_store_stream_rate_bytes_count 4.947534e+06
+# HELP loki_rate_store_stream_shards The distribution of number of shards for a single stream reported by ingesters during a sync operation.
+# TYPE loki_rate_store_stream_shards histogram
+loki_rate_store_stream_shards_bucket{le="0"} 0
+loki_rate_store_stream_shards_bucket{le="1"} 4.946628e+06
+loki_rate_store_stream_shards_bucket{le="2"} 4.946983e+06
+loki_rate_store_stream_shards_bucket{le="4"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="8"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="16"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="32"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="64"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="128"} 4.947534e+06
+loki_rate_store_stream_shards_bucket{le="+Inf"} 4.947534e+06
+loki_rate_store_stream_shards_sum 4.949029e+06
+loki_rate_store_stream_shards_count 4.947534e+06
+# HELP loki_rate_store_streams The number of unique streams reported by all ingesters. Sharded streams are combined
+# TYPE loki_rate_store_streams gauge
+loki_rate_store_streams 123
+# HELP loki_store_chunk_ref_lookups_bypassed_total Number of chunk refs that were bypassed due to store overrides: computed during planning to avoid lookups
+# TYPE loki_store_chunk_ref_lookups_bypassed_total counter
+loki_store_chunk_ref_lookups_bypassed_total 0
+# HELP loki_stream_sharding_count Total number of times the distributor has sharded streams
+# TYPE loki_stream_sharding_count counter
+loki_stream_sharding_count 156
+# HELP loki_write_failures_discarded_total The total number of write failures logs discarded for a tenant.
+# TYPE loki_write_failures_discarded_total counter
+loki_write_failures_discarded_total{org_id="fake",subsystem="ingester"} 6.337375e+06
