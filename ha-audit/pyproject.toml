@@ -5,6 +5,7 @@ description = "CLI to audit a Home Assistant instance for likely unused integrat
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "rich>=13.9.0",
   "requests>=2.32.0",
   "websockets>=12.0",
 ]

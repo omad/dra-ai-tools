@@ -6,6 +6,10 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from typing import Any
 
+from rich.console import Group
+from rich.table import Table
+from rich.text import Text
+
 from .client import HomeAssistantClient
 
 
@@ -373,67 +377,118 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
     )
 
 
-def render_text_report(report: AuditReport) -> str:
-    lines = []
-    lines.append(f"Home Assistant audit for {report.base_url}")
+def _format_value(value: Any) -> str:
+    if isinstance(value, list):
+        return ", ".join(str(item) for item in value) if value else "-"
+    if isinstance(value, bool):
+        return "yes" if value else "no"
+    if value in (None, ""):
+        return "-"
+    return str(value)
+
+
+def _status_text(candidate_unused: bool) -> Text:
+    return Text("candidate" if candidate_unused else "in use", style="bold red" if candidate_unused else "green")
+
+
+def render_text_report(report: AuditReport) -> Group:
+    renderables: list[Any] = []
+
+    title = Text.assemble(
+        ("Home Assistant audit", "bold"),
+        (" for ", ""),
+        (report.base_url, "cyan"),
+    )
     if report.summary.get("instance_name"):
-        lines.append(f"Instance: {report.summary['instance_name']}")
+        title.append(f"  instance={report.summary['instance_name']}", style="magenta")
     if report.summary.get("version"):
-        lines.append(f"Version: {report.summary['version']}")
-    lines.append("")
-    lines.append("Summary")
+        title.append(f"  version={report.summary['version']}", style="yellow")
+    renderables.append(title)
+
+    summary_table = Table(title="Summary", header_style="bold cyan")
+    summary_table.add_column("Metric", style="bold")
+    summary_table.add_column("Value")
     for key, value in report.summary.items():
         if key in {"instance_name", "version"}:
             continue
-        lines.append(f"- {key}: {value}")
+        summary_table.add_row(key.replace("_", " "), _format_value(value))
+    renderables.append(summary_table)
 
-    lines.append("")
-    lines.append("Custom integration candidates")
+    integrations_table = Table(title="Custom Integration Candidates", header_style="bold cyan")
+    integrations_table.add_column("Status", no_wrap=True)
+    integrations_table.add_column("Domain", style="bold")
+    integrations_table.add_column("Title")
+    integrations_table.add_column("Usage", justify="right")
+    integrations_table.add_column("Entities", justify="right")
+    integrations_table.add_column("Live", justify="right")
+    integrations_table.add_column("Devices", justify="right")
+    integrations_table.add_column("Services", justify="right")
+    integrations_table.add_column("Dash", justify="right")
+    integrations_table.add_column("Repository")
+    integrations_table.add_column("Reasons", overflow="fold")
     if report.custom_integrations:
         for item in report.custom_integrations:
-            prefix = "[candidate]" if item["candidate_unused"] else "[in use]"
-            lines.append(
-                f"- {prefix} {item['domain']} ({item['title']}): "
-                f"score={item['usage_score']}, entities={item['entities']}, live_entities={item['live_entities']}, "
-                f"devices={item['devices']}, services={item['services']}, dashboard_refs={item['dashboard_references']}"
+            integrations_table.add_row(
+                _status_text(item["candidate_unused"]),
+                _format_value(item["domain"]),
+                _format_value(item["title"]),
+                _format_value(item["usage_score"]),
+                _format_value(item["entities"]),
+                _format_value(item["live_entities"]),
+                _format_value(item["devices"]),
+                _format_value(item["services"]),
+                _format_value(item["dashboard_references"]),
+                _format_value(item.get("repository")),
+                _format_value(item["reasons"]),
             )
-            if item.get("repository"):
-                lines.append(f"  repository: {item['repository']}")
-            if item["reasons"]:
-                lines.append(f"  reasons: {', '.join(item['reasons'])}")
     else:
-        lines.append("- No custom integrations could be identified from the available APIs.")
+        integrations_table.add_row("n/a", "-", "No custom integrations could be identified from the available APIs.", "-", "-", "-", "-", "-", "-", "-", "-")
+    renderables.append(integrations_table)
 
-    lines.append("")
-    lines.append("Frontend resource candidates")
+    resources_table = Table(title="Frontend Resource Candidates", header_style="bold cyan")
+    resources_table.add_column("Status", no_wrap=True)
+    resources_table.add_column("URL", overflow="fold")
+    resources_table.add_column("Type", no_wrap=True)
+    resources_table.add_column("Matched Cards", overflow="fold")
+    resources_table.add_column("HACS Plugins", overflow="fold")
     if report.frontend_resources:
         for item in report.frontend_resources:
-            prefix = "[candidate]" if item["candidate_unused"] else "[in use]"
-            lines.append(
-                f"- {prefix} {item['url']} type={item['resource_type']} matched_cards={item['matched_custom_cards']}"
+            resources_table.add_row(
+                _status_text(item["candidate_unused"]),
+                _format_value(item["url"]),
+                _format_value(item["resource_type"]),
+                _format_value(item["matched_custom_cards"]),
+                _format_value(item.get("matched_hacs_plugins")),
             )
-            if item.get("matched_hacs_plugins"):
-                lines.append(f"  HACS plugins: {item['matched_hacs_plugins']}")
     else:
-        lines.append("- No Lovelace resources found.")
+        resources_table.add_row("n/a", "No Lovelace resources found.", "-", "-", "-")
+    renderables.append(resources_table)
 
-    lines.append("")
-    lines.append("Custom panels")
+    panels_table = Table(title="Custom Panels", header_style="bold cyan")
+    panels_table.add_column("Panel Key", style="bold")
+    panels_table.add_column("Component")
+    panels_table.add_column("Icon")
+    panels_table.add_column("Admin", no_wrap=True)
     if report.custom_panels:
         for item in report.custom_panels:
-            lines.append(
-                f"- {item['panel_key']}: component={item['component_name']} require_admin={item['require_admin']}"
+            panels_table.add_row(
+                _format_value(item["panel_key"]),
+                _format_value(item["component_name"]),
+                _format_value(item.get("icon")),
+                _format_value(item["require_admin"]),
             )
     else:
-        lines.append("- No custom panels found.")
+        panels_table.add_row("No custom panels found.", "-", "-", "-")
+    renderables.append(panels_table)
 
     if report.warnings:
-        lines.append("")
-        lines.append("Warnings")
+        warnings_table = Table(title="Warnings", header_style="bold yellow")
+        warnings_table.add_column("Warning", overflow="fold")
         for warning in report.warnings:
-            lines.append(f"- {warning}")
+            warnings_table.add_row(warning)
+        renderables.append(warnings_table)
 
-    return "\n".join(lines)
+    return Group(*renderables)
 
 
 def render_json_report(report: AuditReport) -> str:

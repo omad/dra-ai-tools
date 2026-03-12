@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 import sys
 
+from rich.console import Console
+
 from .auth import AuthError, TokenStore, get_access_token, normalize_base_url
 from .audit import render_json_report, render_text_report, run_audit
 from .client import HomeAssistantClient
@@ -78,6 +80,7 @@ def cmd_logout(url: str | None) -> int:
 
 
 def cmd_audit(url: str | None, force_login: bool, output_format: str) -> int:
+    console = Console()
     store = TokenStore()
     normalized = _resolve_url(url, "audit", store)
     access_token = get_access_token(normalized, force_login=force_login, store=store)
@@ -86,7 +89,7 @@ def cmd_audit(url: str | None, force_login: bool, output_format: str) -> int:
     if output_format == "json":
         print(render_json_report(report))
     else:
-        print(render_text_report(report))
+        console.print(render_text_report(report))
     return 0
 
 
