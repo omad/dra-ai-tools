@@ -35,6 +35,16 @@ class HomeAssistantClient:
             raise HAClientError(f"GET {path} failed: {response.status_code} {response.text}")
         return response.json()
 
+    def fetch_resource_size(self, resource_url: str) -> int:
+        response = requests.get(
+            urljoin(self.base_url + "/", resource_url.lstrip("/")),
+            headers={"Authorization": f"Bearer {self.access_token}"},
+            timeout=30,
+        )
+        if response.status_code >= 400:
+            raise HAClientError(f"GET {resource_url} failed: {response.status_code} {response.text}")
+        return len(response.content)
+
     async def ws_commands(self, commands: list[dict[str, Any]]) -> dict[str, Any]:
         parsed = urlparse(self.base_url)
         scheme = "wss" if parsed.scheme == "https" else "ws"

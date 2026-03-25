@@ -79,6 +79,14 @@ def _extract_custom_card_types(value: Any) -> list[str]:
     )
 
 
+def _count_custom_card_instances(value: Any) -> Counter[str]:
+    counts: Counter[str] = Counter()
+    for text in _flatten_strings(value):
+        if isinstance(text, str) and text.startswith("custom:") and len(text.split(":", 1)) == 2:
+            counts[text.split(":", 1)[1]] += 1
+    return counts
+
+
 def _count_domain_references(value: Any, domains: set[str]) -> Counter[str]:
     counts: Counter[str] = Counter()
     for text in _flatten_strings(value):
@@ -121,6 +129,28 @@ def _guess_hacs_plugin_matches(url: str, hacs_plugins: list[dict[str, Any]]) -> 
         if any(candidate in lowered for candidate in candidates):
             matches.append(plugin.get("full_name") or plugin.get("name") or plugin.get("id"))
     return sorted(set(matches))
+
+
+def _dashboard_label(title: Any, url_path: Any) -> str:
+    if title:
+        return str(title)
+    if url_path in (None, ""):
+        return "Overview"
+    return str(url_path)
+
+
+def _safe_resource_size(client: HomeAssistantClient, resource_url: str, warnings: list[str]) -> int | None:
+    try:
+        return client.fetch_resource_size(resource_url)
+    except Exception as exc:
+        warnings.append(f"Resource {resource_url} unavailable: {exc}")
+        return None
+
+
+def _format_kilobytes(size_bytes: int | None) -> str:
+    if size_bytes is None:
+        return "-"
+    return f"{size_bytes / 1024:.1f} KB"
 
 
 def run_audit(client: HomeAssistantClient) -> AuditReport:
@@ -218,6 +248,23 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
 
     dashboard_custom_cards = _extract_custom_card_types(lovelace_config)
     dashboard_domain_refs = _count_domain_references(lovelace_config, set(state_domains) | set(registry_domains))
+    dashboard_card_usage: list[dict[str, Any]] = []
+    if isinstance(lovelace_config, dict) and isinstance(lovelace_config.get("dashboards"), list):
+        for dashboard in lovelace_config["dashboards"]:
+            config = dashboard.get("config")
+            dashboard_card_usage.append(
+                {
+                    "label": _dashboard_label(dashboard.get("title"), dashboard.get("url_path")),
+                    "custom_card_counts": _count_custom_card_instances(config),
+                }
+            )
+    else:
+        dashboard_card_usage.append(
+            {
+                "label": _dashboard_label(rest_config.get("location_name"), None),
+                "custom_card_counts": _count_custom_card_instances(lovelace_config),
+            }
+        )
 
     entry_devices = defaultdict(int)
     for device in device_registry:
@@ -324,17 +371,41 @@ def run_audit(client: HomeAssistantClient) -> AuditReport:
             guessed_tags = _guess_resource_tags(url)
             matched_tags = sorted(set(guessed_tags) & set(dashboard_custom_cards))
             matched_hacs_plugins = _guess_hacs_plugin_matches(url, hacs_plugins)
+            dashboards_using_resource = []
+            usage_instances = 0
+            for dashboard in dashboard_card_usage:
+                match_count = sum(dashboard["custom_card_counts"].get(tag, 0) for tag in matched_tags)
+                if match_count > 0:
+                    dashboards_using_resource.append(
+                        {
+                            "dashboard": dashboard["label"],
+                            "instances": match_count,
+                        }
+                    )
+                    usage_instances += match_count
+            size_bytes = _safe_resource_size(client, url, warnings) if url else None
             frontend_resources_report.append(
                 {
                     "url": url,
                     "resource_type": resource.get("type"),
+                    "size_bytes": size_bytes,
+                    "size_human": _format_kilobytes(size_bytes),
                     "guessed_tags": guessed_tags,
                     "matched_custom_cards": matched_tags,
                     "matched_hacs_plugins": matched_hacs_plugins,
-                    "candidate_unused": len(matched_tags) == 0 and bool(dashboard_custom_cards),
+                    "usage_instances": usage_instances,
+                    "usage_dashboards": dashboards_using_resource,
+                    "candidate_unused": usage_instances == 0 and bool(dashboard_custom_cards),
                 }
             )
-    frontend_resources_report.sort(key=lambda item: (not item["candidate_unused"], item["url"]))
+    frontend_resources_report.sort(
+        key=lambda item: (
+            item["size_bytes"] is None,
+            -(item["size_bytes"] or 0),
+            not item["candidate_unused"],
+            item["url"],
+        )
+    )
 
     custom_panels = []
     if isinstance(panels, dict):
@@ -449,19 +520,28 @@ def render_text_report(report: AuditReport) -> Group:
     resources_table.add_column("Status", no_wrap=True)
     resources_table.add_column("URL", overflow="fold")
     resources_table.add_column("Type", no_wrap=True)
+    resources_table.add_column("Size", justify="right", no_wrap=True)
     resources_table.add_column("Matched Cards", overflow="fold")
+    resources_table.add_column("Usage", overflow="fold")
     resources_table.add_column("HACS Plugins", overflow="fold")
     if report.frontend_resources:
         for item in report.frontend_resources:
+            usage = "-"
+            if item["usage_dashboards"]:
+                usage = f"{item['usage_instances']} total: " + ", ".join(
+                    f"{entry['dashboard']} ({entry['instances']})" for entry in item["usage_dashboards"]
+                )
             resources_table.add_row(
                 _status_text(item["candidate_unused"]),
                 _format_value(item["url"]),
                 _format_value(item["resource_type"]),
+                _format_value(item["size_human"]),
                 _format_value(item["matched_custom_cards"]),
+                usage,
                 _format_value(item.get("matched_hacs_plugins")),
             )
     else:
-        resources_table.add_row("n/a", "No Lovelace resources found.", "-", "-", "-")
+        resources_table.add_row("n/a", "No Lovelace resources found.", "-", "-", "-", "-", "-")
     renderables.append(resources_table)
 
     panels_table = Table(title="Custom Panels", header_style="bold cyan")
