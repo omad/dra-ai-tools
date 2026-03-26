@@ -1,0 +1,24 @@
+[project]
+name = "interrogate-lsp-server-features"
+version = "0.1.0"
+description = "CLI for probing and comparing LSP server capabilities."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "rich>=14.0.0",
+]
+
+[project.scripts]
+lsp-cap-inspect = "lsp_cap_inspect.cli:main"
+
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lsp_cap_inspect"]

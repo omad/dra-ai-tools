@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LSP Capability Comparison</title>
+  <style>
+    :root {
+      --bg: #f7f1e8;
+      --panel: rgba(255, 255, 255, 0.78);
+      --panel-border: rgba(85, 61, 42, 0.16);
+      --ink: #23180f;
+      --muted: #6f5b4b;
+      --accent: #c44d1a;
+      --accent-soft: #f3c7af;
+      --success: #2f7d4f;
+      --danger: #8a3b29;
+      --shadow: 0 24px 60px rgba(71, 45, 20, 0.14);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255, 212, 182, 0.7), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(206, 229, 212, 0.75), transparent 28%),
+        linear-gradient(180deg, #fbf6ee 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+    .wrap {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+    header {
+      padding: 28px 32px;
+      border: 1px solid var(--panel-border);
+      border-radius: 28px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    h1, h2, h3 { margin: 0; font-weight: 700; }
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.04em; }
+    h2 {
+      font-size: 1.8rem;
+      margin: 40px 0 16px;
+      letter-spacing: -0.03em;
+    }
+    h3 { font-size: 1.1rem; margin-bottom: 12px; }
+    p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .lede { margin-top: 10px; max-width: 70ch; }
+    .meta { margin-top: 18px; color: var(--accent); font-weight: 700; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--panel-border);
+      background: rgba(255,255,255,0.75);
+      box-shadow: var(--shadow);
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+    .chip-yes {
+      background: rgba(47, 125, 79, 0.14);
+      color: var(--success);
+    }
+    .chip-no {
+      background: rgba(138, 59, 41, 0.14);
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>LSP Capability Comparison</h1>
+      <p class="lede">This report groups common Language Server Protocol capabilities by purpose, explains what each feature means, and shows which saved server probes currently advertise support for it.</p>
+      <div class="meta">Servers: basedpyright-langserver, esbonio, marksman, nixd, python3, ruff, rust-analyzer, yaml-language-server · Latest capture: 2026-03-25T03:07:41Z</div>
+    </header>
+    
+            <section>
+              <h2>Language Features</h2>
+              <div class="grid">
+                <article class="card">
+                  <h3>hoverProvider</h3>
+                  <p>Supports hover information at a symbol or cursor location.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>definitionProvider</h3>
+                  <p>Supports go-to-definition requests.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>declarationProvider</h3>
+                  <p>Supports go-to-declaration requests.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>typeDefinitionProvider</h3>
+                  <p>Supports go-to-type-definition requests.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>implementationProvider</h3>
+                  <p>Supports go-to-implementation requests.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>referencesProvider</h3>
+                  <p>Supports finding symbol references.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentHighlightProvider</h3>
+                  <p>Highlights related symbols within a document.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentSymbolProvider</h3>
+                  <p>Lists symbols within a single document.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>workspaceSymbolProvider</h3>
+                  <p>Searches symbols across the workspace.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>renameProvider</h3>
+                  <p>Supports symbol rename operations.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>semanticTokensProvider</h3>
+                  <p>Provides semantic token classification for syntax-aware highlighting.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>linkedEditingRangeProvider</h3>
+                  <p>Supports linked editing for mirrored ranges.</p>
+                  <div class="chips"><span class="chip chip-no">No saved server reports support this</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>monikerProvider</h3>
+                  <p>Provides cross-tool symbol identities.</p>
+                  <div class="chips"><span class="chip chip-no">No saved server reports support this</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>typeHierarchyProvider</h3>
+                  <p>Supports type hierarchy exploration.</p>
+                  <div class="chips"><span class="chip chip-no">No saved server reports support this</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>callHierarchyProvider</h3>
+                  <p>Supports call hierarchy exploration.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>inlineValueProvider</h3>
+                  <p>Provides inline values, often for debugging.</p>
+                  <div class="chips"><span class="chip chip-no">No saved server reports support this</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>inlayHintProvider</h3>
+                  <p>Provides inlay hints such as inferred types or parameter names.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>diagnosticProvider</h3>
+                  <p>Supports pull-based diagnostics.</p>
+                  <div class="chips"><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                </div>
+            </section>
+            
+            <section>
+              <h2>Editing &amp; Actions</h2>
+              <div class="grid">
+                <article class="card">
+                  <h3>completionProvider</h3>
+                  <p>Offers code completion candidates.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>signatureHelpProvider</h3>
+                  <p>Shows callable signatures and parameter help.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>codeActionProvider</h3>
+                  <p>Provides code actions like quick fixes or refactors.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>codeLensProvider</h3>
+                  <p>Provides code lenses embedded in the editor.</p>
+                  <div class="chips"><span class="chip chip-yes">marksman</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentFormattingProvider</h3>
+                  <p>Formats an entire document.</p>
+                  <div class="chips"><span class="chip chip-yes">nixd</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentRangeFormattingProvider</h3>
+                  <p>Formats a selected range.</p>
+                  <div class="chips"><span class="chip chip-yes">ruff</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentOnTypeFormattingProvider</h3>
+                  <p>Formats while typing trigger characters.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>foldingRangeProvider</h3>
+                  <p>Provides folding ranges.</p>
+                  <div class="chips"><span class="chip chip-yes">nixd</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>selectionRangeProvider</h3>
+                  <p>Provides smart selection expansion.</p>
+                  <div class="chips"><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>colorProvider</h3>
+                  <p>Supplies document colors and color presentations.</p>
+                  <div class="chips"><span class="chip chip-no">No saved server reports support this</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>documentLinkProvider</h3>
+                  <p>Finds and resolves links in a document.</p>
+                  <div class="chips"><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>executeCommandProvider</h3>
+                  <p>Accepts workspace/command execution requests.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                </div>
+            </section>
+            
+            <section>
+              <h2>Workspace &amp; Files</h2>
+              <div class="grid">
+                <article class="card">
+                  <h3>workspace</h3>
+                  <p>Declares workspace-level features and dynamic registration support.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>workspace.fileOperations</h3>
+                  <p>Hooks file create/rename/delete operations.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">rust-analyzer</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>workspace.workspaceFolders</h3>
+                  <p>Supports multi-root workspace folders.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>textDocumentSync</h3>
+                  <p>Defines document open/change/save synchronization behavior.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">esbonio</span><span class="chip chip-yes">marksman</span><span class="chip chip-yes">nixd</span><span class="chip chip-yes">python3</span><span class="chip chip-yes">ruff</span><span class="chip chip-yes">rust-analyzer</span><span class="chip chip-yes">yaml-language-server</span></div>
+                </article>
+                
+                <article class="card">
+                  <h3>notebookDocumentSync</h3>
+                  <p>Supports notebook document synchronization.</p>
+                  <div class="chips"><span class="chip chip-yes">basedpyright-langserver</span><span class="chip chip-yes">ruff</span></div>
+                </article>
+                </div>
+            </section>
+            
+  </div>
+</body>
+</html>

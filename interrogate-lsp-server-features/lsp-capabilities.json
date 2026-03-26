@@ -1,0 +1,1565 @@
+{
+  "basedpyright-langserver": {
+    "capabilities": {
+      "callHierarchyProvider": true,
+      "codeActionProvider": {
+        "codeActionKinds": [
+          "quickfix",
+          "source.organizeImports"
+        ],
+        "workDoneProgress": true
+      },
+      "completionProvider": {
+        "completionItem": {
+          "labelDetailsSupport": true
+        },
+        "resolveProvider": true,
+        "triggerCharacters": [
+          ".",
+          "[",
+          "\"",
+          "'"
+        ],
+        "workDoneProgress": true
+      },
+      "declarationProvider": {
+        "workDoneProgress": true
+      },
+      "definitionProvider": {
+        "workDoneProgress": true
+      },
+      "documentHighlightProvider": {
+        "workDoneProgress": true
+      },
+      "documentOnTypeFormattingProvider": {
+        "firstTriggerCharacter": "{"
+      },
+      "documentSymbolProvider": {
+        "workDoneProgress": true
+      },
+      "executeCommandProvider": {
+        "commands": [
+          "basedpyright.createtypestub",
+          "basedpyright.restartserver",
+          "basedpyright.writeBaseline"
+        ],
+        "workDoneProgress": true
+      },
+      "hoverProvider": {
+        "workDoneProgress": true
+      },
+      "implementationProvider": {
+        "workDoneProgress": true
+      },
+      "inlayHintProvider": true,
+      "notebookDocumentSync": {
+        "notebookSelector": [
+          {
+            "cells": [
+              {
+                "language": "python"
+              }
+            ],
+            "notebook": {
+              "notebookType": "jupyter-notebook",
+              "scheme": "file"
+            }
+          }
+        ],
+        "save": true
+      },
+      "referencesProvider": {
+        "workDoneProgress": true
+      },
+      "renameProvider": {
+        "prepareProvider": true,
+        "workDoneProgress": true
+      },
+      "semanticTokensProvider": {
+        "full": true,
+        "legend": {
+          "tokenModifiers": [
+            "declaration",
+            "definition",
+            "readonly",
+            "static",
+            "async",
+            "defaultLibrary",
+            "builtin",
+            "classMember",
+            "parameter"
+          ],
+          "tokenTypes": [
+            "namespace",
+            "type",
+            "class",
+            "enum",
+            "typeParameter",
+            "parameter",
+            "variable",
+            "property",
+            "enumMember",
+            "function",
+            "method",
+            "keyword",
+            "decorator",
+            "selfParameter",
+            "clsParameter"
+          ]
+        }
+      },
+      "signatureHelpProvider": {
+        "triggerCharacters": [
+          "(",
+          ",",
+          ")"
+        ],
+        "workDoneProgress": true
+      },
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "willSave": true
+      },
+      "typeDefinitionProvider": {
+        "workDoneProgress": true
+      },
+      "workspace": {
+        "fileOperations": {
+          "willRename": {
+            "filters": [
+              {
+                "pattern": {
+                  "glob": "**/*"
+                }
+              }
+            ]
+          }
+        },
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      },
+      "workspaceSymbolProvider": {
+        "workDoneProgress": true
+      }
+    },
+    "captured_at": "2026-03-25T02:56:26Z",
+    "connect_target": null,
+    "launch_command": [
+      "basedpyright-langserver",
+      "--stdio"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "callHierarchyProvider": true,
+          "codeActionProvider": {
+            "codeActionKinds": [
+              "quickfix",
+              "source.organizeImports"
+            ],
+            "workDoneProgress": true
+          },
+          "completionProvider": {
+            "completionItem": {
+              "labelDetailsSupport": true
+            },
+            "resolveProvider": true,
+            "triggerCharacters": [
+              ".",
+              "[",
+              "\"",
+              "'"
+            ],
+            "workDoneProgress": true
+          },
+          "declarationProvider": {
+            "workDoneProgress": true
+          },
+          "definitionProvider": {
+            "workDoneProgress": true
+          },
+          "documentHighlightProvider": {
+            "workDoneProgress": true
+          },
+          "documentOnTypeFormattingProvider": {
+            "firstTriggerCharacter": "{"
+          },
+          "documentSymbolProvider": {
+            "workDoneProgress": true
+          },
+          "executeCommandProvider": {
+            "commands": [
+              "basedpyright.createtypestub",
+              "basedpyright.restartserver",
+              "basedpyright.writeBaseline"
+            ],
+            "workDoneProgress": true
+          },
+          "hoverProvider": {
+            "workDoneProgress": true
+          },
+          "implementationProvider": {
+            "workDoneProgress": true
+          },
+          "inlayHintProvider": true,
+          "notebookDocumentSync": {
+            "notebookSelector": [
+              {
+                "cells": [
+                  {
+                    "language": "python"
+                  }
+                ],
+                "notebook": {
+                  "notebookType": "jupyter-notebook",
+                  "scheme": "file"
+                }
+              }
+            ],
+            "save": true
+          },
+          "referencesProvider": {
+            "workDoneProgress": true
+          },
+          "renameProvider": {
+            "prepareProvider": true,
+            "workDoneProgress": true
+          },
+          "semanticTokensProvider": {
+            "full": true,
+            "legend": {
+              "tokenModifiers": [
+                "declaration",
+                "definition",
+                "readonly",
+                "static",
+                "async",
+                "defaultLibrary",
+                "builtin",
+                "classMember",
+                "parameter"
+              ],
+              "tokenTypes": [
+                "namespace",
+                "type",
+                "class",
+                "enum",
+                "typeParameter",
+                "parameter",
+                "variable",
+                "property",
+                "enumMember",
+                "function",
+                "method",
+                "keyword",
+                "decorator",
+                "selfParameter",
+                "clsParameter"
+              ]
+            }
+          },
+          "signatureHelpProvider": {
+            "triggerCharacters": [
+              "(",
+              ",",
+              ")"
+            ],
+            "workDoneProgress": true
+          },
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "willSave": true
+          },
+          "typeDefinitionProvider": {
+            "workDoneProgress": true
+          },
+          "workspace": {
+            "fileOperations": {
+              "willRename": {
+                "filters": [
+                  {
+                    "pattern": {
+                      "glob": "**/*"
+                    }
+                  }
+                ]
+              }
+            },
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          },
+          "workspaceSymbolProvider": {
+            "workDoneProgress": true
+          }
+        },
+        "serverInfo": {
+          "name": "basedpyright",
+          "version": "1.38.3"
+        }
+      }
+    },
+    "server_id": "basedpyright-langserver",
+    "server_info": {
+      "name": "basedpyright",
+      "version": "1.38.3"
+    },
+    "transport": "stdio"
+  },
+  "esbonio": {
+    "capabilities": {
+      "completionProvider": {
+        "resolveProvider": true,
+        "triggerCharacters": [
+          "<",
+          ".",
+          ":",
+          "/",
+          "{",
+          "`"
+        ]
+      },
+      "definitionProvider": true,
+      "documentLinkProvider": {
+        "resolveProvider": false
+      },
+      "documentSymbolProvider": true,
+      "executeCommandProvider": {
+        "commands": [
+          "esbonio.sphinx.restart",
+          "esbonio.server.previewFile"
+        ]
+      },
+      "hoverProvider": true,
+      "positionEncoding": "utf-16",
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "save": true
+      },
+      "workspace": {
+        "fileOperations": {},
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      },
+      "workspaceSymbolProvider": {
+        "resolveProvider": false
+      }
+    },
+    "captured_at": "2026-03-25T03:04:49Z",
+    "connect_target": null,
+    "launch_command": [
+      "esbonio"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "completionProvider": {
+            "resolveProvider": true,
+            "triggerCharacters": [
+              "<",
+              ".",
+              ":",
+              "/",
+              "{",
+              "`"
+            ]
+          },
+          "definitionProvider": true,
+          "documentLinkProvider": {
+            "resolveProvider": false
+          },
+          "documentSymbolProvider": true,
+          "executeCommandProvider": {
+            "commands": [
+              "esbonio.sphinx.restart",
+              "esbonio.server.previewFile"
+            ]
+          },
+          "hoverProvider": true,
+          "positionEncoding": "utf-16",
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "save": true
+          },
+          "workspace": {
+            "fileOperations": {},
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          },
+          "workspaceSymbolProvider": {
+            "resolveProvider": false
+          }
+        },
+        "serverInfo": {
+          "name": "esbonio",
+          "version": "1.1.0"
+        }
+      }
+    },
+    "server_id": "esbonio",
+    "server_info": {
+      "name": "esbonio",
+      "version": "1.1.0"
+    },
+    "transport": "stdio"
+  },
+  "marksman": {
+    "capabilities": {
+      "codeActionProvider": {
+        "resolveProvider": false
+      },
+      "codeLensProvider": {},
+      "completionProvider": {
+        "triggerCharacters": [
+          "[",
+          "#",
+          "("
+        ]
+      },
+      "definitionProvider": true,
+      "documentSymbolProvider": true,
+      "executeCommandProvider": {
+        "commands": []
+      },
+      "hoverProvider": true,
+      "referencesProvider": true,
+      "renameProvider": true,
+      "semanticTokensProvider": {
+        "full": {
+          "delta": false
+        },
+        "legend": {
+          "tokenModifiers": [],
+          "tokenTypes": [
+            "class",
+            "class",
+            "enumMember"
+          ]
+        },
+        "range": true
+      },
+      "textDocumentSync": {
+        "change": 1,
+        "openClose": true
+      },
+      "workspace": {
+        "fileOperations": {
+          "didCreate": {
+            "filters": [
+              {
+                "pattern": {
+                  "glob": "**/*.{}",
+                  "matches": "file",
+                  "options": {
+                    "ignoreCase": true
+                  }
+                }
+              }
+            ]
+          },
+          "didDelete": {
+            "filters": [
+              {
+                "pattern": {
+                  "glob": "**/*.{}",
+                  "matches": "file",
+                  "options": {
+                    "ignoreCase": true
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      },
+      "workspaceSymbolProvider": true
+    },
+    "captured_at": "2026-03-25T03:05:04Z",
+    "connect_target": null,
+    "launch_command": [
+      "marksman"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "codeActionProvider": {
+            "resolveProvider": false
+          },
+          "codeLensProvider": {},
+          "completionProvider": {
+            "triggerCharacters": [
+              "[",
+              "#",
+              "("
+            ]
+          },
+          "definitionProvider": true,
+          "documentSymbolProvider": true,
+          "executeCommandProvider": {
+            "commands": []
+          },
+          "hoverProvider": true,
+          "referencesProvider": true,
+          "renameProvider": true,
+          "semanticTokensProvider": {
+            "full": {
+              "delta": false
+            },
+            "legend": {
+              "tokenModifiers": [],
+              "tokenTypes": [
+                "class",
+                "class",
+                "enumMember"
+              ]
+            },
+            "range": true
+          },
+          "textDocumentSync": {
+            "change": 1,
+            "openClose": true
+          },
+          "workspace": {
+            "fileOperations": {
+              "didCreate": {
+                "filters": [
+                  {
+                    "pattern": {
+                      "glob": "**/*.{}",
+                      "matches": "file",
+                      "options": {
+                        "ignoreCase": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "didDelete": {
+                "filters": [
+                  {
+                    "pattern": {
+                      "glob": "**/*.{}",
+                      "matches": "file",
+                      "options": {
+                        "ignoreCase": true
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          },
+          "workspaceSymbolProvider": true
+        }
+      }
+    },
+    "server_id": "marksman",
+    "server_info": null,
+    "transport": "stdio"
+  },
+  "nixd": {
+    "capabilities": {
+      "codeActionProvider": {
+        "codeActionKinds": [
+          "quickfix",
+          "refactor",
+          "refactor.rewrite"
+        ],
+        "resolveProvider": true
+      },
+      "completionProvider": {
+        "resolveProvider": true,
+        "triggerCharacters": [
+          "."
+        ]
+      },
+      "definitionProvider": true,
+      "documentFormattingProvider": true,
+      "documentHighlightProvider": true,
+      "documentLinkProvider": {},
+      "documentSymbolProvider": true,
+      "foldingRangeProvider": true,
+      "hoverProvider": true,
+      "inlayHintProvider": true,
+      "referencesProvider": true,
+      "renameProvider": {
+        "prepareProvider": true
+      },
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "save": true
+      }
+    },
+    "captured_at": "2026-03-25T03:05:46Z",
+    "connect_target": null,
+    "launch_command": [
+      "nixd"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "codeActionProvider": {
+            "codeActionKinds": [
+              "quickfix",
+              "refactor",
+              "refactor.rewrite"
+            ],
+            "resolveProvider": true
+          },
+          "completionProvider": {
+            "resolveProvider": true,
+            "triggerCharacters": [
+              "."
+            ]
+          },
+          "definitionProvider": true,
+          "documentFormattingProvider": true,
+          "documentHighlightProvider": true,
+          "documentLinkProvider": {},
+          "documentSymbolProvider": true,
+          "foldingRangeProvider": true,
+          "hoverProvider": true,
+          "inlayHintProvider": true,
+          "referencesProvider": true,
+          "renameProvider": {
+            "prepareProvider": true
+          },
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "save": true
+          }
+        },
+        "serverInfo": {
+          "name": "nixd",
+          "version": "2.9.0"
+        }
+      }
+    },
+    "server_id": "nixd",
+    "server_info": {
+      "name": "nixd",
+      "version": "2.9.0"
+    },
+    "transport": "stdio"
+  },
+  "python3": {
+    "capabilities": {
+      "completionProvider": {
+        "triggerCharacters": [
+          ".",
+          ":"
+        ]
+      },
+      "definitionProvider": true,
+      "hoverProvider": true,
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "save": {
+          "includeText": false
+        }
+      },
+      "workspace": {
+        "workspaceFolders": {
+          "supported": true
+        }
+      }
+    },
+    "captured_at": "2026-03-25T02:53:16Z",
+    "connect_target": null,
+    "launch_command": [
+      "python3",
+      "tests/mock_stdio_server.py"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "completionProvider": {
+            "triggerCharacters": [
+              ".",
+              ":"
+            ]
+          },
+          "definitionProvider": true,
+          "hoverProvider": true,
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "save": {
+              "includeText": false
+            }
+          },
+          "workspace": {
+            "workspaceFolders": {
+              "supported": true
+            }
+          }
+        },
+        "serverInfo": {
+          "name": "Mock Stdio",
+          "version": "1.0"
+        }
+      }
+    },
+    "server_id": "python3",
+    "server_info": {
+      "name": "Mock Stdio",
+      "version": "1.0"
+    },
+    "transport": "stdio"
+  },
+  "ruff": {
+    "capabilities": {
+      "codeActionProvider": {
+        "codeActionKinds": [
+          "quickfix",
+          "source.fixAll.ruff",
+          "source.organizeImports.ruff",
+          "notebook.source.fixAll.ruff",
+          "notebook.source.organizeImports.ruff"
+        ],
+        "resolveProvider": true,
+        "workDoneProgress": true
+      },
+      "diagnosticProvider": {
+        "identifier": "Ruff",
+        "interFileDependencies": false,
+        "workDoneProgress": true,
+        "workspaceDiagnostics": false
+      },
+      "documentFormattingProvider": true,
+      "documentRangeFormattingProvider": true,
+      "executeCommandProvider": {
+        "commands": [
+          "ruff.applyFormat",
+          "ruff.applyAutofix",
+          "ruff.applyOrganizeImports",
+          "ruff.printDebugInformation"
+        ],
+        "workDoneProgress": false
+      },
+      "hoverProvider": true,
+      "notebookDocumentSync": {
+        "notebookSelector": [
+          {
+            "cells": [
+              {
+                "language": "python"
+              }
+            ]
+          }
+        ],
+        "save": false
+      },
+      "positionEncoding": "utf-16",
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "willSave": false,
+        "willSaveWaitUntil": false
+      },
+      "workspace": {
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      }
+    },
+    "captured_at": "2026-03-25T03:10:06Z",
+    "connect_target": null,
+    "launch_command": [
+      "ruff",
+      "server"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "codeActionProvider": {
+            "codeActionKinds": [
+              "quickfix",
+              "source.fixAll.ruff",
+              "source.organizeImports.ruff",
+              "notebook.source.fixAll.ruff",
+              "notebook.source.organizeImports.ruff"
+            ],
+            "resolveProvider": true,
+            "workDoneProgress": true
+          },
+          "diagnosticProvider": {
+            "identifier": "Ruff",
+            "interFileDependencies": false,
+            "workDoneProgress": true,
+            "workspaceDiagnostics": false
+          },
+          "documentFormattingProvider": true,
+          "documentRangeFormattingProvider": true,
+          "executeCommandProvider": {
+            "commands": [
+              "ruff.applyFormat",
+              "ruff.applyAutofix",
+              "ruff.applyOrganizeImports",
+              "ruff.printDebugInformation"
+            ],
+            "workDoneProgress": false
+          },
+          "hoverProvider": true,
+          "notebookDocumentSync": {
+            "notebookSelector": [
+              {
+                "cells": [
+                  {
+                    "language": "python"
+                  }
+                ]
+              }
+            ],
+            "save": false
+          },
+          "positionEncoding": "utf-16",
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "willSave": false,
+            "willSaveWaitUntil": false
+          },
+          "workspace": {
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          }
+        },
+        "serverInfo": {
+          "name": "ruff",
+          "version": "0.15.7"
+        }
+      }
+    },
+    "server_id": "ruff",
+    "server_info": {
+      "name": "ruff",
+      "version": "0.15.7"
+    },
+    "transport": "stdio"
+  },
+  "rust-analyzer": {
+    "capabilities": {
+      "callHierarchyProvider": true,
+      "codeActionProvider": true,
+      "codeLensProvider": {
+        "resolveProvider": true
+      },
+      "completionProvider": {
+        "completionItem": {
+          "labelDetailsSupport": false
+        },
+        "resolveProvider": false,
+        "triggerCharacters": [
+          ":",
+          ".",
+          "'",
+          "("
+        ]
+      },
+      "declarationProvider": true,
+      "definitionProvider": true,
+      "diagnosticProvider": {
+        "identifier": "rust-analyzer",
+        "interFileDependencies": true,
+        "workspaceDiagnostics": false
+      },
+      "documentFormattingProvider": true,
+      "documentHighlightProvider": true,
+      "documentOnTypeFormattingProvider": {
+        "firstTriggerCharacter": ".",
+        "moreTriggerCharacter": [
+          "=",
+          "<",
+          ">",
+          "{",
+          "(",
+          "|",
+          "+"
+        ]
+      },
+      "documentRangeFormattingProvider": false,
+      "documentSymbolProvider": true,
+      "experimental": {
+        "childModules": true,
+        "externalDocs": true,
+        "hoverRange": true,
+        "joinLines": true,
+        "matchingBrace": true,
+        "moveItem": true,
+        "onEnter": true,
+        "openCargoToml": true,
+        "parentModule": true,
+        "runnables": {
+          "kinds": [
+            "cargo"
+          ]
+        },
+        "ssr": true,
+        "workspaceSymbolScopeKindFiltering": true
+      },
+      "foldingRangeProvider": true,
+      "hoverProvider": true,
+      "implementationProvider": true,
+      "inlayHintProvider": {
+        "resolveProvider": false
+      },
+      "positionEncoding": "utf-16",
+      "referencesProvider": true,
+      "renameProvider": {
+        "prepareProvider": true
+      },
+      "selectionRangeProvider": true,
+      "semanticTokensProvider": {
+        "full": {
+          "delta": true
+        },
+        "legend": {
+          "tokenModifiers": [
+            "async",
+            "documentation",
+            "declaration",
+            "static",
+            "defaultLibrary",
+            "deprecated",
+            "associated",
+            "attribute",
+            "callable",
+            "constant",
+            "consuming",
+            "controlFlow",
+            "crateRoot",
+            "injected",
+            "intraDocLink",
+            "library",
+            "macro",
+            "mutable",
+            "procMacro",
+            "public",
+            "reference",
+            "trait",
+            "unsafe"
+          ],
+          "tokenTypes": [
+            "comment",
+            "decorator",
+            "enumMember",
+            "enum",
+            "function",
+            "interface",
+            "keyword",
+            "macro",
+            "method",
+            "namespace",
+            "number",
+            "operator",
+            "parameter",
+            "property",
+            "string",
+            "struct",
+            "typeParameter",
+            "variable",
+            "type",
+            "angle",
+            "arithmetic",
+            "attributeBracket",
+            "attribute",
+            "bitwise",
+            "boolean",
+            "brace",
+            "bracket",
+            "builtinAttribute",
+            "builtinType",
+            "character",
+            "colon",
+            "comma",
+            "comparison",
+            "constParameter",
+            "const",
+            "deriveHelper",
+            "derive",
+            "dot",
+            "escapeSequence",
+            "formatSpecifier",
+            "generic",
+            "invalidEscapeSequence",
+            "label",
+            "lifetime",
+            "logical",
+            "macroBang",
+            "negation",
+            "parenthesis",
+            "procMacro",
+            "punctuation",
+            "selfKeyword",
+            "selfTypeKeyword",
+            "semicolon",
+            "static",
+            "toolModule",
+            "typeAlias",
+            "union",
+            "unresolvedReference"
+          ]
+        },
+        "range": true
+      },
+      "signatureHelpProvider": {
+        "triggerCharacters": [
+          "(",
+          ",",
+          "<"
+        ]
+      },
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "save": {}
+      },
+      "typeDefinitionProvider": true,
+      "workspace": {
+        "fileOperations": {
+          "willRename": {
+            "filters": [
+              {
+                "pattern": {
+                  "glob": "**/*.rs",
+                  "matches": "file"
+                },
+                "scheme": "file"
+              },
+              {
+                "pattern": {
+                  "glob": "**",
+                  "matches": "folder"
+                },
+                "scheme": "file"
+              }
+            ]
+          }
+        },
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      },
+      "workspaceSymbolProvider": true
+    },
+    "captured_at": "2026-03-25T03:05:14Z",
+    "connect_target": null,
+    "launch_command": [
+      "rust-analyzer"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "callHierarchyProvider": true,
+          "codeActionProvider": true,
+          "codeLensProvider": {
+            "resolveProvider": true
+          },
+          "completionProvider": {
+            "completionItem": {
+              "labelDetailsSupport": false
+            },
+            "resolveProvider": false,
+            "triggerCharacters": [
+              ":",
+              ".",
+              "'",
+              "("
+            ]
+          },
+          "declarationProvider": true,
+          "definitionProvider": true,
+          "diagnosticProvider": {
+            "identifier": "rust-analyzer",
+            "interFileDependencies": true,
+            "workspaceDiagnostics": false
+          },
+          "documentFormattingProvider": true,
+          "documentHighlightProvider": true,
+          "documentOnTypeFormattingProvider": {
+            "firstTriggerCharacter": ".",
+            "moreTriggerCharacter": [
+              "=",
+              "<",
+              ">",
+              "{",
+              "(",
+              "|",
+              "+"
+            ]
+          },
+          "documentRangeFormattingProvider": false,
+          "documentSymbolProvider": true,
+          "experimental": {
+            "childModules": true,
+            "externalDocs": true,
+            "hoverRange": true,
+            "joinLines": true,
+            "matchingBrace": true,
+            "moveItem": true,
+            "onEnter": true,
+            "openCargoToml": true,
+            "parentModule": true,
+            "runnables": {
+              "kinds": [
+                "cargo"
+              ]
+            },
+            "ssr": true,
+            "workspaceSymbolScopeKindFiltering": true
+          },
+          "foldingRangeProvider": true,
+          "hoverProvider": true,
+          "implementationProvider": true,
+          "inlayHintProvider": {
+            "resolveProvider": false
+          },
+          "positionEncoding": "utf-16",
+          "referencesProvider": true,
+          "renameProvider": {
+            "prepareProvider": true
+          },
+          "selectionRangeProvider": true,
+          "semanticTokensProvider": {
+            "full": {
+              "delta": true
+            },
+            "legend": {
+              "tokenModifiers": [
+                "async",
+                "documentation",
+                "declaration",
+                "static",
+                "defaultLibrary",
+                "deprecated",
+                "associated",
+                "attribute",
+                "callable",
+                "constant",
+                "consuming",
+                "controlFlow",
+                "crateRoot",
+                "injected",
+                "intraDocLink",
+                "library",
+                "macro",
+                "mutable",
+                "procMacro",
+                "public",
+                "reference",
+                "trait",
+                "unsafe"
+              ],
+              "tokenTypes": [
+                "comment",
+                "decorator",
+                "enumMember",
+                "enum",
+                "function",
+                "interface",
+                "keyword",
+                "macro",
+                "method",
+                "namespace",
+                "number",
+                "operator",
+                "parameter",
+                "property",
+                "string",
+                "struct",
+                "typeParameter",
+                "variable",
+                "type",
+                "angle",
+                "arithmetic",
+                "attributeBracket",
+                "attribute",
+                "bitwise",
+                "boolean",
+                "brace",
+                "bracket",
+                "builtinAttribute",
+                "builtinType",
+                "character",
+                "colon",
+                "comma",
+                "comparison",
+                "constParameter",
+                "const",
+                "deriveHelper",
+                "derive",
+                "dot",
+                "escapeSequence",
+                "formatSpecifier",
+                "generic",
+                "invalidEscapeSequence",
+                "label",
+                "lifetime",
+                "logical",
+                "macroBang",
+                "negation",
+                "parenthesis",
+                "procMacro",
+                "punctuation",
+                "selfKeyword",
+                "selfTypeKeyword",
+                "semicolon",
+                "static",
+                "toolModule",
+                "typeAlias",
+                "union",
+                "unresolvedReference"
+              ]
+            },
+            "range": true
+          },
+          "signatureHelpProvider": {
+            "triggerCharacters": [
+              "(",
+              ",",
+              "<"
+            ]
+          },
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "save": {}
+          },
+          "typeDefinitionProvider": true,
+          "workspace": {
+            "fileOperations": {
+              "willRename": {
+                "filters": [
+                  {
+                    "pattern": {
+                      "glob": "**/*.rs",
+                      "matches": "file"
+                    },
+                    "scheme": "file"
+                  },
+                  {
+                    "pattern": {
+                      "glob": "**",
+                      "matches": "folder"
+                    },
+                    "scheme": "file"
+                  }
+                ]
+              }
+            },
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          },
+          "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+          "name": "rust-analyzer",
+          "version": "1.94.0 (4a4ef493 2026-03-02)"
+        }
+      }
+    },
+    "server_id": "rust-analyzer",
+    "server_info": {
+      "name": "rust-analyzer",
+      "version": "1.94.0 (4a4ef493 2026-03-02)"
+    },
+    "transport": "stdio"
+  },
+  "terraform-ls": {
+    "capabilities": {
+      "codeActionProvider": {
+        "codeActionKinds": [
+          "source.formatAll.terraform"
+        ]
+      },
+      "codeLensProvider": {},
+      "completionProvider": {
+        "resolveProvider": true,
+        "triggerCharacters": [
+          ".",
+          "["
+        ]
+      },
+      "declarationProvider": true,
+      "definitionProvider": true,
+      "documentFormattingProvider": true,
+      "documentLinkProvider": {},
+      "documentSymbolProvider": true,
+      "executeCommandProvider": {
+        "commands": [
+          "terraform-ls.module.callers",
+          "terraform-ls.module.calls",
+          "terraform-ls.module.providers",
+          "terraform-ls.module.terraform",
+          "terraform-ls.rootmodules",
+          "terraform-ls.terraform.init",
+          "terraform-ls.terraform.validate"
+        ],
+        "workDoneProgress": true
+      },
+      "experimental": {
+        "referenceCountCodeLens": false,
+        "refreshModuleCalls": false,
+        "refreshModuleProviders": false,
+        "refreshTerraformVersion": false
+      },
+      "hoverProvider": true,
+      "referencesProvider": true,
+      "semanticTokensProvider": {
+        "full": true,
+        "legend": {
+          "tokenModifiers": [],
+          "tokenTypes": [
+            "type"
+          ]
+        }
+      },
+      "signatureHelpProvider": {
+        "triggerCharacters": [
+          "(",
+          ","
+        ]
+      },
+      "textDocumentSync": {
+        "change": 2,
+        "openClose": true,
+        "save": {}
+      },
+      "workspace": {
+        "fileOperations": {},
+        "workspaceFolders": {
+          "changeNotifications": "workspace/didChangeWorkspaceFolders",
+          "supported": true
+        }
+      },
+      "workspaceSymbolProvider": true
+    },
+    "captured_at": "2026-03-25T04:55:52Z",
+    "connect_target": null,
+    "launch_command": [
+      "terraform-ls",
+      "serve"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "codeActionProvider": {
+            "codeActionKinds": [
+              "source.formatAll.terraform"
+            ]
+          },
+          "codeLensProvider": {},
+          "completionProvider": {
+            "resolveProvider": true,
+            "triggerCharacters": [
+              ".",
+              "["
+            ]
+          },
+          "declarationProvider": true,
+          "definitionProvider": true,
+          "documentFormattingProvider": true,
+          "documentLinkProvider": {},
+          "documentSymbolProvider": true,
+          "executeCommandProvider": {
+            "commands": [
+              "terraform-ls.module.callers",
+              "terraform-ls.module.calls",
+              "terraform-ls.module.providers",
+              "terraform-ls.module.terraform",
+              "terraform-ls.rootmodules",
+              "terraform-ls.terraform.init",
+              "terraform-ls.terraform.validate"
+            ],
+            "workDoneProgress": true
+          },
+          "experimental": {
+            "referenceCountCodeLens": false,
+            "refreshModuleCalls": false,
+            "refreshModuleProviders": false,
+            "refreshTerraformVersion": false
+          },
+          "hoverProvider": true,
+          "referencesProvider": true,
+          "semanticTokensProvider": {
+            "full": true,
+            "legend": {
+              "tokenModifiers": [],
+              "tokenTypes": [
+                "type"
+              ]
+            }
+          },
+          "signatureHelpProvider": {
+            "triggerCharacters": [
+              "(",
+              ","
+            ]
+          },
+          "textDocumentSync": {
+            "change": 2,
+            "openClose": true,
+            "save": {}
+          },
+          "workspace": {
+            "fileOperations": {},
+            "workspaceFolders": {
+              "changeNotifications": "workspace/didChangeWorkspaceFolders",
+              "supported": true
+            }
+          },
+          "workspaceSymbolProvider": true
+        },
+        "serverInfo": {
+          "name": "terraform-ls",
+          "version": "0.38.5"
+        }
+      }
+    },
+    "server_id": "terraform-ls",
+    "server_info": {
+      "name": "terraform-ls",
+      "version": "0.38.5"
+    },
+    "transport": "stdio"
+  },
+  "yaml-language-server": {
+    "capabilities": {
+      "codeActionProvider": true,
+      "codeLensProvider": {
+        "resolveProvider": false
+      },
+      "completionProvider": {
+        "resolveProvider": false
+      },
+      "definitionProvider": true,
+      "documentFormattingProvider": true,
+      "documentLinkProvider": {},
+      "documentOnTypeFormattingProvider": {
+        "firstTriggerCharacter": "\n"
+      },
+      "documentRangeFormattingProvider": false,
+      "documentSymbolProvider": true,
+      "executeCommandProvider": {
+        "commands": [
+          "jumpToSchema"
+        ]
+      },
+      "foldingRangeProvider": true,
+      "hoverProvider": true,
+      "renameProvider": {
+        "prepareProvider": true
+      },
+      "selectionRangeProvider": true,
+      "textDocumentSync": 2,
+      "workspace": {
+        "workspaceFolders": {
+          "changeNotifications": true,
+          "supported": true
+        }
+      }
+    },
+    "captured_at": "2026-03-25T03:07:41Z",
+    "connect_target": null,
+    "launch_command": [
+      "yaml-language-server",
+      "--stdio"
+    ],
+    "raw_initialize": {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": {
+        "capabilities": {
+          "codeActionProvider": true,
+          "codeLensProvider": {
+            "resolveProvider": false
+          },
+          "completionProvider": {
+            "resolveProvider": false
+          },
+          "definitionProvider": true,
+          "documentFormattingProvider": true,
+          "documentLinkProvider": {},
+          "documentOnTypeFormattingProvider": {
+            "firstTriggerCharacter": "\n"
+          },
+          "documentRangeFormattingProvider": false,
+          "documentSymbolProvider": true,
+          "executeCommandProvider": {
+            "commands": [
+              "jumpToSchema"
+            ]
+          },
+          "foldingRangeProvider": true,
+          "hoverProvider": true,
+          "renameProvider": {
+            "prepareProvider": true
+          },
+          "selectionRangeProvider": true,
+          "textDocumentSync": 2,
+          "workspace": {
+            "workspaceFolders": {
+              "changeNotifications": true,
+              "supported": true
+            }
+          }
+        },
+        "serverInfo": {
+          "name": "yaml-language-server",
+          "version": "1.21.0"
+        }
+      }
+    },
+    "server_id": "yaml-language-server",
+    "server_info": {
+      "name": "yaml-language-server",
+      "version": "1.21.0"
+    },
+    "transport": "stdio"
+  }
+}

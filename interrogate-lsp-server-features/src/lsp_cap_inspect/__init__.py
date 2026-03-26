@@ -1,0 +1,1 @@
+"""LSP capability inspection CLI."""
