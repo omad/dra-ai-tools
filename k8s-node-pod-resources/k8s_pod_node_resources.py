@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uv run
+#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.12"
 # dependencies = ["rich>=14.0.0"]
@@ -113,6 +113,15 @@ def style_percent(part: int, whole: int) -> Text:
     return Text(f"{pct:.1f}%", style=style)
 
 
+def style_usage(actual: str, requested: str, parser) -> Text:
+    text = Text(actual or "-")
+    actual_value = parser(actual)
+    requested_value = parser(requested)
+    if requested_value > 0 and actual_value < (requested_value * 0.5):
+        text.stylize("bold black on yellow")
+    return text
+
+
 def load_metrics() -> dict[tuple[str, str, str], tuple[str, str]]:
     metrics_by_key: dict[tuple[str, str, str], tuple[str, str]] = {}
     top_output = run_kubectl("top", "pod", "-A", "--containers", "--no-headers")
@@ -197,10 +206,10 @@ def render_container_table(rows: list[ContainerRow], totals: ContainerRow, node_
     table.add_column("Pod", no_wrap=True)
     table.add_column("Container", no_wrap=True)
     table.add_column("CPU", justify="right", no_wrap=True)
-    table.add_column("Memory", justify="right", no_wrap=True)
     table.add_column("Req CPU", justify="right", no_wrap=True)
-    table.add_column("Req Mem", justify="right", no_wrap=True)
     table.add_column("Lim CPU", justify="right", no_wrap=True)
+    table.add_column("Memory", justify="right", no_wrap=True)
+    table.add_column("Req Mem", justify="right", no_wrap=True)
     table.add_column("Lim Mem", justify="right", no_wrap=True)
 
     for row in rows:
@@ -208,11 +217,11 @@ def render_container_table(rows: list[ContainerRow], totals: ContainerRow, node_
             row.namespace,
             row.pod,
             row.container,
-            row.cpu,
-            row.memory,
+            style_usage(row.cpu, row.request_cpu, parse_cpu),
             row.request_cpu,
-            row.request_memory,
             row.limit_cpu,
+            style_usage(row.memory, row.request_memory, parse_memory),
+            row.request_memory,
             row.limit_memory,
         )
 
@@ -223,10 +232,10 @@ def render_container_table(rows: list[ContainerRow], totals: ContainerRow, node_
         "",
         "",
         f"[bold]{totals.cpu}[/bold]",
-        f"[bold]{totals.memory}[/bold]",
         f"[bold]{totals.request_cpu}[/bold]",
-        f"[bold]{totals.request_memory}[/bold]",
         f"[bold]{totals.limit_cpu}[/bold]",
+        f"[bold]{totals.memory}[/bold]",
+        f"[bold]{totals.request_memory}[/bold]",
         f"[bold]{totals.limit_memory}[/bold]",
         style="bold white",
     )
@@ -246,39 +255,30 @@ def build_node_summary(node: dict, totals: ContainerRow) -> Panel:
     cap_memory = parse_memory(capacity.get("memory", ""))
 
     summary = Table(box=box.MINIMAL_DOUBLE_HEAD, header_style="bold magenta")
-    summary.add_column("Resource", style="bold", no_wrap=True)
-    summary.add_column("Used", justify="right", no_wrap=True)
-    summary.add_column("% Alloc", justify="right", no_wrap=True)
-    summary.add_column("Avail", justify="right", no_wrap=True)
-    summary.add_column("Alloc", justify="right", no_wrap=True)
-    summary.add_column("% Cap", justify="right", no_wrap=True)
-    summary.add_column("Avail", justify="right", no_wrap=True)
-    summary.add_column("Cap", justify="right", no_wrap=True)
+    summary.add_column("Metric", style="bold", no_wrap=True)
+    summary.add_column("CPU", justify="right", no_wrap=True)
+    summary.add_column("Memory", justify="right", no_wrap=True)
 
+    summary.add_row("Pod usage", format_cpu(used_cpu), format_memory(used_memory))
     summary.add_row(
-        "CPU",
-        format_cpu(used_cpu),
-        style_percent(used_cpu, alloc_cpu),
+        "Available alloc",
         format_cpu(max(alloc_cpu - used_cpu, 0)),
-        format_cpu(alloc_cpu),
-        style_percent(used_cpu, cap_cpu),
-        format_cpu(max(cap_cpu - used_cpu, 0)),
-        format_cpu(cap_cpu),
-    )
-    summary.add_row(
-        "Memory",
-        format_memory(used_memory),
-        style_percent(used_memory, alloc_memory),
         format_memory(max(alloc_memory - used_memory, 0)),
-        format_memory(alloc_memory),
-        style_percent(used_memory, cap_memory),
-        format_memory(max(cap_memory - used_memory, 0)),
-        format_memory(cap_memory),
     )
+    summary.add_row("Allocatable", format_cpu(alloc_cpu), format_memory(alloc_memory))
+    summary.add_row("Utilized alloc", style_percent(used_cpu, alloc_cpu), style_percent(used_memory, alloc_memory))
+    summary.add_section()
+    summary.add_row(
+        "Available cap",
+        format_cpu(max(cap_cpu - used_cpu, 0)),
+        format_memory(max(cap_memory - used_memory, 0)),
+    )
+    summary.add_row("Capacity", format_cpu(cap_cpu), format_memory(cap_memory))
+    summary.add_row("Utilized cap", style_percent(used_cpu, cap_cpu), style_percent(used_memory, cap_memory))
 
     subtitle = Text()
-    subtitle.append("Used values come from live pod metrics. ", style="dim")
-    subtitle.append("Available = node total minus live used.", style="dim")
+    subtitle.append("Pod usage matches the TOTAL row above. ", style="dim")
+    subtitle.append("Highlighted usage cells are below 50% of requested resources.", style="dim")
 
     return Panel(
         Group(summary, subtitle),
